@@ -1,0 +1,6 @@
+/* A field is defined twice. */
+entity DefinedTwice (
+  blo string,
+  ble date required,
+  blo date,
+  power real );

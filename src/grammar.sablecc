@@ -1,0 +1,120 @@
+/* Copyright 2007 Jacques Berger
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+/* Note: Some Helpers were inspired by the minijava grammar of 
+   Étienne M. Gagnon. */
+
+Helpers
+
+  any = [0..0xFFFF];
+  
+  cr = 13;
+  lf = 10;
+  eol = cr lf | cr | lf;
+  tab = 9;
+  space = ' ';
+  
+  digit = ['0'..'9'];
+  lower = ['a'..'z'];
+  upper = ['A'..'Z'];
+  letter = lower | upper;
+  
+  underscore = '_';
+  
+  a = 'a' | 'A';
+  d = 'd' | 'D';
+  e = 'e' | 'E';
+  g = 'g' | 'G';
+  h = 'h' | 'H';
+  i = 'i' | 'I';
+  l = 'l' | 'L';
+  m = 'm' | 'M';
+  n = 'n' | 'N';
+  o = 'o' | 'O';
+  q = 'q' | 'Q';
+  r = 'r' | 'R';
+  s = 's' | 'S';
+  t = 't' | 'T';
+  u = 'u' | 'U';
+  y = 'y' | 'Y';
+  z = 'z' | 'Z';
+
+  
+Tokens
+  l_par = '(';
+  r_par = ')';
+  comma = ',';
+  semicolon = ';';
+  
+  entity = e n t i t y;
+  has = h a s;
+  many = m a n y;
+  one = o n e;
+  required = r e q u i r e d;
+  to = t o;
+  unique = u n i q u e;
+  zero = z e r o;
+  
+  date = d a t e;
+  integer = i n t e g e r;
+  real = r e a l;
+  string = s t r i n g;
+  
+  number = digit+;
+  identifier = letter (letter | digit | underscore)*;
+  
+  blank = (space | eol | tab)+;
+  comment = '/*' ([any - ['*' + '/']]+ | '/' | '*') '*/';
+
+
+Ignored Tokens
+  blank,
+  comment;
+  
+
+Productions
+
+  script = entity_definition*;
+  
+  entity_definition = entity identifier 
+                      l_par inner_definition more_inner_definition* r_par 
+                      semicolon;
+  
+  inner_definition = 
+     {field}    field_definition |
+     {relation} relation_definition |
+     {unicity}  unicity_definition;
+     
+  more_inner_definition = comma inner_definition; 
+  
+  field_definition = identifier data_type required?;
+  
+  relation_definition = 
+     {one}  has may_be_zero? one identifier |
+     {many} has may_be_zero? many identifier;
+  
+  unicity_definition = unique l_par identifier more_identifier* r_par;
+  
+  data_type = 
+     {date}     date |
+     {integer}  integer |
+     {real}     real |
+     {string}   string string_length?;
+  
+  string_length = l_par number r_par;
+  
+  may_be_zero = zero to;
+  
+  more_identifier = comma identifier;

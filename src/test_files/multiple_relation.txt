@@ -1,0 +1,11 @@
+/* Throw a MultipleRelationException. */
+
+entity first (
+  field real required
+);
+
+entity violation (
+  dummy real,
+  has many first,
+  has one first
+);

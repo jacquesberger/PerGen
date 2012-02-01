@@ -1,0 +1,29 @@
+/* Grammar test... tests all the productions of the grammar.
+   No errors in this file.
+*/
+
+entity Author (
+  firstname string required,
+  lastname string(50) required,
+  birthdate date,
+  death date,
+  has zero to many Book,
+  unique(firstname, lastname, birthdate)
+  );
+  
+entity Book (
+  title string(150) required,
+  price real required,
+  has many Author,
+  has one Library,
+  unique (title)
+  );
+  
+entity Library (
+  numberOfEmployees integer required,
+  has many Book
+  );
+  
+entity Options (
+  option1 date
+  );

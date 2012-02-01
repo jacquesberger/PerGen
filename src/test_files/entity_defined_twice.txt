@@ -1,0 +1,13 @@
+/* Will raise an exception. */
+
+entity mayor (
+   dummy string
+   );
+   
+entity house (
+   dummy string
+   );
+   
+entity mayor (
+   test string
+   );

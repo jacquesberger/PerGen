@@ -1,0 +1,10 @@
+/* Test the bidirectional relation exception. */
+
+entity first (
+  dummy real,
+  has one second
+);
+
+entity second (
+  dummy real
+);

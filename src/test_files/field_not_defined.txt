@@ -1,0 +1,7 @@
+/* A unicity constraint refers to a non existing field. */
+
+entity River (
+  width integer,
+  name string,
+  location string,
+  unique(name, depth) );
