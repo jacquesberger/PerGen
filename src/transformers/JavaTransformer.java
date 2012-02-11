@@ -11,7 +11,7 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-*/
+ */
 
 package transformers;
 
@@ -29,123 +29,92 @@ import exceptions.AmbiguousFieldNameException;
  */
 public final class JavaTransformer {
 
-    /**
-     * To avoid instanciation.
-     */
-    private JavaTransformer() {
+    public static String snakeCaseIdentifierToPascalCase(String identifier) {
+	char[] workString = snakeCaseIdentifierToCamelCase(identifier).toCharArray();
+	if (workString.length > 0)
+	    workString[0] = Character.toUpperCase(workString[0]);
+	
+	return new String(workString);
     }
 
-    /**
-     * Performs these transformations:
-     * 1. Every character immediatly following a _ is capitalized.
-     * 2. Every other characters are not capitalized.
-     * 3. Every _ are removed.
-     * 4. If firstCharCapital is true, the first character is capitalized.
-     * @param identifier The string to transform.
-     * @param firstCharCapital true if the first character must be capitalized,
-     *                         false otherwise.
-     * @return The transformed string.
-     */
-    private static String transformIdentifier(final String identifier,
-                                              final boolean firstCharCapital) {
-        char[] workString = identifier.toLowerCase().toCharArray();
-        if (firstCharCapital) {
-            workString[0] = Character.toUpperCase(workString[0]);
-        }
+    public static String snakeCaseIdentifierToCamelCase(String identifier) {
+	char[] workString = identifier.toLowerCase().toCharArray();
 
-        int charIndex;
-        for (charIndex = 1; charIndex < workString.length; charIndex++) {
-            if (workString[charIndex] == '_') {
-                workString[charIndex] = ' ';
-                if (charIndex < workString.length - 1) {
-                    workString[charIndex + 1] =
-                               Character.toUpperCase(workString[charIndex + 1]);
-                }
-            }
-        }
+	boolean firstCharacterMet = false;
+	for (int charIndex = 0; charIndex < workString.length; charIndex++) {
+	    if (workString[charIndex] == '_' && firstCharacterMet) {
+		if (charIndex < workString.length - 1)
+		    workString[charIndex + 1] = Character.toUpperCase(workString[charIndex + 1]);
+	    } else {
+		firstCharacterMet = true;
+	    }
+	}
 
-        charIndex = 0;
-        while (charIndex < workString.length) {
-            if (workString[charIndex] == ' ') {
-                for (int indexToEnd = charIndex;
-                     indexToEnd < workString.length - 1; indexToEnd++) {
-                    workString[indexToEnd] = workString[indexToEnd + 1];
-                }
-                workString[workString.length - 1] = '\0';
-            } else {
-                charIndex++;
-            }
-        }
-
-        String modified = new String(workString);
-        modified = modified.trim();
-        return modified;
+	return new String(workString).replace("_", "");
     }
 
     /**
      * Apply the code transformations to the entities and fields.
-     * @param infos The global informations.
+     * 
+     * @param infos
+     *            The global informations.
      */
     public static void transform(final GlobalInformations infos) {
-        transformEntities(infos.getEntities());
+	transformEntities(infos.getEntities());
     }
 
     /**
      * Transform the entity names.
-     * @param entities A collection of entities.
+     * 
+     * @param entities
+     *            A collection of entities.
      */
-    private static void transformEntities(
-                                final Collection<EntityInformations> entities) {
-        Hashtable<String, EntityInformations> producedNames =
-                                    new Hashtable<String, EntityInformations>();
+    private static void transformEntities(final Collection<EntityInformations> entities) {
+	Hashtable<String, EntityInformations> producedNames = new Hashtable<String, EntityInformations>();
 
-        for (EntityInformations entity : entities) {
-            String codeName = transformIdentifier(entity.getOriginalName(),
-                                                  true);
+	for (EntityInformations entity : entities) {
+	    String codeName = snakeCaseIdentifierToPascalCase(entity.getOriginalName());
 
-            EntityInformations possibleDuplicate = producedNames.get(codeName);
-            if (possibleDuplicate != null) {
-                throw new AmbiguousEntityNameException(entity.getOriginalName(),
-                                            possibleDuplicate.getOriginalName(),
-                                            "code", codeName);
-            }
+	    EntityInformations possibleDuplicate = producedNames.get(codeName);
+	    if (possibleDuplicate != null) {
+		throw new AmbiguousEntityNameException(entity.getOriginalName(),
+		        possibleDuplicate.getOriginalName(), "code", codeName);
+	    }
 
-            entity.setCodeName(codeName);
-            producedNames.put(codeName, entity);
-            transformFields(entity.getOriginalName(), entity.getFields());
-        }
+	    entity.setCodeName(codeName);
+	    producedNames.put(codeName, entity);
+	    transformFields(entity.getOriginalName(), entity.getFields());
+	}
     }
 
     /**
      * Transform the field names.
-     * @param entityName The name of the entity.
-     * @param fields A collection of fields in the entity.
+     * 
+     * @param entityName
+     *            The name of the entity.
+     * @param fields
+     *            A collection of fields in the entity.
      */
     private static void transformFields(final String entityName,
-                                   final Collection<FieldInformations> fields) {
-        Hashtable<String, FieldInformations> producedNames =
-                                     new Hashtable<String, FieldInformations>();
+	    final Collection<FieldInformations> fields) {
+	Hashtable<String, FieldInformations> producedNames = new Hashtable<String, FieldInformations>();
 
-        for (FieldInformations field : fields) {
-            String codeName = transformIdentifier(field.getOriginalName(),
-                                                  false);
+	for (FieldInformations field : fields) {
+	    String codeName = snakeCaseIdentifierToCamelCase(field.getOriginalName());
+	    String codeNamePascalCase = snakeCaseIdentifierToPascalCase(field.getOriginalName());
 
-            FieldInformations possibleDuplicate = producedNames.get(codeName);
-            if (possibleDuplicate != null) {
-                throw new AmbiguousFieldNameException(field.getOriginalName(),
-                                            possibleDuplicate.getOriginalName(),
-                                            entityName, "code", codeName);
-            }
+	    FieldInformations possibleDuplicate = producedNames.get(codeName);
+	    if (possibleDuplicate != null) {
+		throw new AmbiguousFieldNameException(field.getOriginalName(),
+		        possibleDuplicate.getOriginalName(), entityName, "code", codeName);
+	    }
 
-            field.setCodeName(codeName);
-            producedNames.put(codeName, field);
+	    field.setCodeName(codeName);
+	    producedNames.put(codeName, field);
 
-            char[] workingName = codeName.toCharArray();
-            workingName[0] = Character.toUpperCase(workingName[0]);
-            String capitalized = new String(workingName);
-            field.setGetterName("get" + capitalized);
-            field.setSetterName("set" + capitalized);
-        }
+	    field.setGetterName("get" + codeNamePascalCase);
+	    field.setSetterName("set" + codeNamePascalCase);
+	}
     }
 
 }
