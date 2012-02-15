@@ -17,16 +17,18 @@ package tests;
 
 import domain.FieldInformations;
 import domain.FieldType;
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Tests for the class FieldInformations.
  */
-public class FieldInformationsTest extends TestCase {
+public class FieldInformationsTest {
 
     /**
      * Test for the isRequired method.
      */
+    @Test
     public final void testIsRequired() {
         FieldInformations field = new FieldInformations("Test",
                                                         FieldType.Type.DATE,
@@ -38,6 +40,7 @@ public class FieldInformationsTest extends TestCase {
     /**
      * Test for the getOriginalName method.
      */
+    @Test
     public final void testGetOriginalName() {
         FieldInformations field = new FieldInformations("Test",
                                                         FieldType.Type.DATE,
@@ -49,6 +52,7 @@ public class FieldInformationsTest extends TestCase {
     /**
      * Test for the getOriginalDataType method.
      */
+    @Test
     public final void testGetOriginalDataType() {
         FieldInformations field = new FieldInformations("Test",
                                                         FieldType.Type.DATE,
@@ -62,6 +66,7 @@ public class FieldInformationsTest extends TestCase {
     /**
      * Test for the getStringLength and setStringLength methods.
      */
+    @Test
     public final void testGetSetStringLength() {
         FieldInformations field = new FieldInformations("Test",
                                              FieldType.Type.STRING, false);

@@ -18,16 +18,18 @@ package tests;
 import domain.EntityInformations;
 import domain.FieldInformations;
 import domain.FieldType;
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test class for EntityInformations.
  */
-public class EntityInformationsTest extends TestCase {
+public class EntityInformationsTest {
 
     /**
      * Test the getOriginalName method.
      */
+    @Test
     public final void testGetOriginalName() {
         EntityInformations entity = new EntityInformations("Rain");
 
@@ -38,6 +40,7 @@ public class EntityInformationsTest extends TestCase {
     /**
      * Test the addField and isFieldDefined methods.
      */
+    @Test
     public final void testAddFieldAndIsDefined() {
         EntityInformations entity = new EntityInformations("Rain");
         FieldInformations field = new FieldInformations("field",
@@ -51,6 +54,7 @@ public class EntityInformationsTest extends TestCase {
     /**
      * Test the getField method.
      */
+    @Test
     public final void testGetField() {
         EntityInformations entity = new EntityInformations("Rain");
         FieldInformations field = new FieldInformations("field",
@@ -64,6 +68,7 @@ public class EntityInformationsTest extends TestCase {
     /**
      * Test the getFields method.
      */
+    @Test
     public final void testGetFields() {
         final int fieldCount = 3;
         EntityInformations entity = new EntityInformations("entity");

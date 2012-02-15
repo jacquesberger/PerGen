@@ -16,13 +16,11 @@
 package tests;
 
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
 import transformers.SqlTransformer;
 
-import junit.framework.TestCase;
-
-public class SqlTransformerTest extends TestCase {
+public class SqlTransformerTest {
 
     @Test
     public void testTransformIdentifierNormal() {

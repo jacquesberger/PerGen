@@ -17,18 +17,17 @@ package tests;
 
 import domain.EntityInformations;
 import domain.GlobalInformations;
-
-import junit.framework.TestCase;
-
-
+import static org.junit.Assert.*;
+import org.junit.Test;
 /**
  * Tests for the GlobalInformations class.
  */
-public class GlobalInformationsTest extends TestCase {
+public class GlobalInformationsTest {
 
     /**
-     * Test the addEntity and isEntityDefied methods.
+     * Test the addEntity and isEntityDefined methods.
      */
+    @Test
     public final void testAddEntityIsEntityDefined() {
         String entityName = "cheese";
         GlobalInformations global = new GlobalInformations();
@@ -45,6 +44,7 @@ public class GlobalInformationsTest extends TestCase {
     /**
      * Test the getEntity method.
      */
+    @Test
     public final void testGetEntity() {
         String entityName = "cheese";
         GlobalInformations global = new GlobalInformations();
@@ -59,6 +59,7 @@ public class GlobalInformationsTest extends TestCase {
     /**
      * Test the getEntities method.
      */
+    @Test
     public final void testGetEntities() {
         final int entityCount = 3;
         GlobalInformations global = new GlobalInformations();

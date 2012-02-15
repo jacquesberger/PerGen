@@ -1,4 +1,4 @@
-/* Copyright 2011 Jacques Berger
+/* Copyright 2012 Jacques Berger
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,22 +15,14 @@
 
 package tests;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-import generators.SQLGenerator;
+@RunWith(Suite.class)
+@SuiteClasses({ EntityInformationsTest.class, FieldInformationsTest.class,
+        GlobalInformationsTest.class, JavaTransformerTest.class, MySql5ProviderTest.class,
+        SqlGeneratorTest.class, SqlTransformerTest.class, UnicityConstraintTest.class })
+public class AllTests {
 
-import org.junit.Test;
-
-import junit.framework.TestCase;
-
-public class SqlGeneratorTest extends TestCase {
-
-    @Test
-    public void testBuildJunctionTableNameNaturalOrder() {
-	assertEquals(SQLGenerator.buildJunctionTableName("AUTHOR", "BOOK"), "AUTHOR_BOOK");
-    }
-
-    @Test
-    public void testBuildJunctionTableNameReverseOrder() {
-	assertEquals(SQLGenerator.buildJunctionTableName("BOOK", "AUTHOR"), "AUTHOR_BOOK");
-    }
 }

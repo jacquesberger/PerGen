@@ -15,23 +15,19 @@
 
 package tests;
 
-import java.util.Collection;
-
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
 import domain.FieldInformations;
 import domain.FieldType;
 import domain.UnicityConstraint;
+import java.util.Collection;
+import org.junit.Test;
 
-public class UnicityConstraintTest extends TestCase {
+public class UnicityConstraintTest {
 
     @Test
     public void testUnicityConstraint() {
 	UnicityConstraint constraint = new UnicityConstraint();
 	Collection<FieldInformations> fieldList = constraint.getFields();
-	assert(fieldList.size() == 0);
+	assert(fieldList.isEmpty());
     }
 
     @Test

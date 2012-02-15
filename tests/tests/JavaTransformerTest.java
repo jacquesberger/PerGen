@@ -15,13 +15,11 @@
 
 package tests;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
 import transformers.JavaTransformer;
 
-public class JavaTransformerTest extends TestCase {
+public class JavaTransformerTest {
 
     @Test
     public void testCamelCaseOneWord() {

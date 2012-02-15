@@ -15,13 +15,11 @@
 
 package tests;
 
-import junit.framework.TestCase;
-
+import codeproviders.MySql5Provider;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import codeproviders.MySql5Provider;
-
-public class MySql5ProviderTest extends TestCase {
+public class MySql5ProviderTest {
 
     @Test
     public void testBuildCreateStatementForJunctionTable() {
