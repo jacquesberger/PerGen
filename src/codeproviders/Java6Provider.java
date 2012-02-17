@@ -15,15 +15,10 @@
 
 package codeproviders;
 
+import domain.*;
+import files.CodeFileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import domain.EntityInformations;
-import domain.FieldInformations;
-import domain.FieldType;
-import domain.Relation;
-import domain.RelationType;
-import files.CodeFileWriter;
 
 /**
  * Provides all the Java code.
@@ -73,12 +68,6 @@ public final class Java6Provider {
         writer.write("public class " + className + " {\n\n");
     }
 
-    /**
-     * Generates an empty default constructor with no parameters.
-     * @param writer The file writer.
-     * @param className The class name.
-     * @throws IOException From the file writer.
-     */
     public static void provideDefaultConstructor(final CodeFileWriter writer,
                                                  final String className)
                                                  throws IOException {
@@ -91,7 +80,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public  static void providePOJOsIdGetterSetter(final CodeFileWriter writer)
+    public static void providePOJOsIdGetterSetter(final CodeFileWriter writer)
                                               throws IOException {
         writer.write("    private Integer id = null;\n\n");
 

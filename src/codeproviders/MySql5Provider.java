@@ -15,18 +15,12 @@
 
 package codeproviders;
 
+import domain.*;
+import files.CodeFileWriter;
+import generators.SQLGenerator;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-
-import domain.EntityInformations;
-import domain.FieldInformations;
-import domain.FieldType;
-import domain.Relation;
-import domain.RelationType;
-import domain.UnicityConstraint;
-import files.CodeFileWriter;
-import generators.SQLGenerator;
 
 /**
  * Provides all the mysql5 code.
