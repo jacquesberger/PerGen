@@ -20,8 +20,7 @@ import java.io.File;
 public class FilePath {
 
     public static String extractDirectory(String completeFilePath) {
-        String pathSeparator = File.pathSeparator;
-        int lastIndex = completeFilePath.lastIndexOf(pathSeparator);
+        int lastIndex = completeFilePath.lastIndexOf(File.pathSeparator);
         if (lastIndex == -1) {
             return "";
         } else {
