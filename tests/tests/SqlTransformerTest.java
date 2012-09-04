@@ -18,7 +18,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import transformers.SqlTransformer;
+import org.jberger.pergen.transformers.SqlTransformer;
 
 public class SqlTransformerTest {
 

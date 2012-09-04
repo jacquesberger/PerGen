@@ -16,7 +16,7 @@
 package tests;
 
 
-import generators.SQLGenerator;
+import org.jberger.pergen.generators.SQLGenerator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

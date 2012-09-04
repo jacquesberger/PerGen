@@ -15,9 +15,9 @@
 
 package tests;
 
-import domain.EntityInformations;
-import domain.FieldInformations;
-import domain.FieldType;
+import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.FieldType;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

@@ -15,7 +15,7 @@
 
 package tests;
 
-import codeproviders.MySql5Provider;
+import org.jberger.pergen.codeproviders.MySql5Provider;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

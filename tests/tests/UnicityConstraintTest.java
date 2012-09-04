@@ -15,9 +15,9 @@
 
 package tests;
 
-import domain.FieldInformations;
-import domain.FieldType;
-import domain.UnicityConstraint;
+import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.FieldType;
+import org.jberger.pergen.domain.UnicityConstraint;
 import java.util.Collection;
 import org.junit.Test;
 

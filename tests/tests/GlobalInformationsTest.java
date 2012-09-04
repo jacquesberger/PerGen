@@ -15,8 +15,8 @@
 
 package tests;
 
-import domain.EntityInformations;
-import domain.GlobalInformations;
+import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.GlobalInformations;
 import static org.junit.Assert.*;
 import org.junit.Test;
 /**

@@ -1,6 +1,6 @@
 package tests.mocks;
 
-import files.CodeFileWriter;
+import org.jberger.pergen.files.CodeFileWriter;
 
 public class MockFileWriter extends CodeFileWriter {
 

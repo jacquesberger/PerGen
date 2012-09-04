@@ -17,7 +17,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import transformers.JavaTransformer;
+import org.jberger.pergen.transformers.JavaTransformer;
 
 public class JavaTransformerTest {
 
