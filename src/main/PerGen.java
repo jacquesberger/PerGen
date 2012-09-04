@@ -15,39 +15,35 @@
 
 package main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PushbackReader;
-
 import domain.GlobalInformations;
 import domain.RelationAnalyzer;
 import explorers.EntityAndFieldExplorer;
 import explorers.RelationExplorer;
-
-import node.Node;
-
-import parser.Parser;
-
-import lexer.Lexer;
-
-import generators.SQLGenerator;
+import files.FilePath;
 import generators.JavaGenerator;
-import transformers.SqlTransformer;
+import generators.SQLGenerator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PushbackReader;
+import lexer.Lexer;
+import node.Node;
+import parser.Parser;
 import transformers.JavaTransformer;
+import transformers.SqlTransformer;
 
 public final class PerGen {
 
     public static void main(final String[] args) {
 	if (args.length != 1) {
-	    showUsage();
+	    ConsoleWriter.displayUsage();
 	    System.exit(1);
 	}
 
 	try {
 	    generateCodeFromUserSpecifications(args[0]);
 	} catch (Exception e) {
-	    e.printStackTrace();
+            ConsoleWriter.displayErrorMessage(e);
 	}
     }
 
@@ -62,7 +58,7 @@ public final class PerGen {
 
 	applyCodeTransformations(global);
 	RelationAnalyzer.analyse(global, relationExplorer.getRelations());
-	generateCode(extractDirectoryFromFilePath(completeFilePath), global);
+	generateCode(FilePath.extractDirectory(completeFilePath), global);
     }
 
     private static Node parseInputFile(String completeFilePath) throws Exception {
@@ -84,21 +80,5 @@ public final class PerGen {
 	SQLGenerator.generate(global, directory + "\\script.sql");
 	JavaGenerator.generatePOJOs(global, directory);
 	JavaGenerator.generateDAOs(global, directory);
-    }
-
-    private static String extractDirectoryFromFilePath(String completeFilePath) {
-	String pathSeparator = File.pathSeparator;
-	int lastIndex = completeFilePath.lastIndexOf(pathSeparator);
-	if (lastIndex == -1) {
-	    return "";
-	} else {
-	    return completeFilePath.substring(0, lastIndex);
-	}
-    }
-
-    private static void showUsage() {
-	System.out.println("Wrong parameters...");
-	System.out.println("Use : java PerGen <file>");
-	System.out.println("<file> = absolute or relative file path, " + "no spaces allowed");
     }
 }
