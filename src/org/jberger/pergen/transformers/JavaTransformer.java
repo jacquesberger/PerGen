@@ -17,7 +17,6 @@ package org.jberger.pergen.transformers;
 
 import java.util.Collection;
 import java.util.Hashtable;
-
 import org.jberger.pergen.domain.EntityInformations;
 import org.jberger.pergen.domain.FieldInformations;
 import org.jberger.pergen.domain.GlobalInformations;
@@ -31,8 +30,9 @@ public final class JavaTransformer {
 
     public static String snakeCaseIdentifierToPascalCase(String identifier) {
 	char[] workString = snakeCaseIdentifierToCamelCase(identifier).toCharArray();
-	if (workString.length > 0)
-	    workString[0] = Character.toUpperCase(workString[0]);
+	if (workString.length > 0) {
+            workString[0] = Character.toUpperCase(workString[0]);
+        }
 	
 	return new String(workString);
     }
@@ -43,8 +43,9 @@ public final class JavaTransformer {
 	boolean firstCharacterMet = false;
 	for (int charIndex = 0; charIndex < workString.length; charIndex++) {
 	    if (workString[charIndex] == '_' && firstCharacterMet) {
-		if (charIndex < workString.length - 1)
-		    workString[charIndex + 1] = Character.toUpperCase(workString[charIndex + 1]);
+		if (charIndex < workString.length - 1) {
+                    workString[charIndex + 1] = Character.toUpperCase(workString[charIndex + 1]);
+                }
 	    } else {
 		firstCharacterMet = true;
 	    }
