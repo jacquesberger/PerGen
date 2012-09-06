@@ -15,9 +15,6 @@
 
 package org.jberger.pergen.domain;
 
-import org.jberger.pergen.domain.FieldInformations;
-import org.jberger.pergen.domain.FieldType;
-import org.jberger.pergen.domain.UnicityConstraint;
 import java.util.Collection;
 import org.junit.Test;
 

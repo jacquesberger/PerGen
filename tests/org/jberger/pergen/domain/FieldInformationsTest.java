@@ -15,8 +15,6 @@
 
 package org.jberger.pergen.domain;
 
-import org.jberger.pergen.domain.FieldInformations;
-import org.jberger.pergen.domain.FieldType;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
