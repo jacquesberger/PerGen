@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tests;
+package org.jberger.pergen.codeproviders;
 
 import org.jberger.pergen.codeproviders.Java6Provider;
 import static org.junit.Assert.assertEquals;

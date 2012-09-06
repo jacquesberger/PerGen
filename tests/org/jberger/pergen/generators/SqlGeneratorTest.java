@@ -13,7 +13,7 @@
    limitations under the License.
 */
 
-package tests;
+package org.jberger.pergen.generators;
 
 
 import org.jberger.pergen.generators.SQLGenerator;

@@ -13,7 +13,7 @@
    limitations under the License.
 */
 
-package tests;
+package org.jberger.pergen.transformers;
 
 import org.jberger.pergen.transformers.JavaTransformer;
 import static org.junit.Assert.assertEquals;

@@ -13,7 +13,7 @@
    limitations under the License.
 */
 
-package tests;
+package org.jberger.pergen.domain;
 
 import org.jberger.pergen.domain.FieldInformations;
 import org.jberger.pergen.domain.FieldType;
