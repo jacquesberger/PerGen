@@ -15,9 +15,9 @@
 
 package tests;
 
+import org.jberger.pergen.transformers.JavaTransformer;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import org.jberger.pergen.transformers.JavaTransformer;
 
 public class JavaTransformerTest {
 
@@ -98,7 +98,7 @@ public class JavaTransformerTest {
     }
     
     @Test
-    public void testEmptyStringPascalCalse() {
+    public void testEmptyStringPascalCase() {
 	assertEquals("", JavaTransformer.snakeCaseIdentifierToPascalCase(""));
     }
     
@@ -108,7 +108,7 @@ public class JavaTransformerTest {
     }
     
     @Test
-    public void testOnlyUnderscoresPascalCalse() {
+    public void testOnlyUnderscoresPascalCase() {
 	assertEquals("", JavaTransformer.snakeCaseIdentifierToPascalCase("____"));
     }
 }

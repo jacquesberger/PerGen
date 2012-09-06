@@ -17,7 +17,6 @@ package org.jberger.pergen.transformers;
 
 import java.util.Collection;
 import java.util.Hashtable;
-
 import org.jberger.pergen.domain.EntityInformations;
 import org.jberger.pergen.domain.FieldInformations;
 import org.jberger.pergen.domain.GlobalInformations;
