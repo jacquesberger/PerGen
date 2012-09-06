@@ -15,6 +15,9 @@
 
 package org.jberger.pergen.main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PushbackReader;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.domain.RelationAnalyzer;
 import org.jberger.pergen.explorers.EntityAndFieldExplorer;
@@ -22,10 +25,6 @@ import org.jberger.pergen.explorers.RelationExplorer;
 import org.jberger.pergen.files.FilePath;
 import org.jberger.pergen.generators.JavaGenerator;
 import org.jberger.pergen.generators.SQLGenerator;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PushbackReader;
 import org.jberger.pergen.lexer.Lexer;
 import org.jberger.pergen.node.Node;
 import org.jberger.pergen.parser.Parser;
