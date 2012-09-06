@@ -58,7 +58,7 @@ public final class SqlTransformer {
             if (possibleDuplicate != null) {
                 throw new AmbiguousEntityNameException(entity.getOriginalName(),
                                             possibleDuplicate.getOriginalName(),
-                                            "SQL", sqlName);
+                                            sqlName);
             }
 
             entity.setSqlName(sqlName);
@@ -84,7 +84,7 @@ public final class SqlTransformer {
             if (possibleDuplicate != null) {
                 throw new AmbiguousFieldNameException(field.getOriginalName(),
                                             possibleDuplicate.getOriginalName(),
-                                            entityName, "SQL", sqlName);
+                                            entityName, sqlName);
             }
 
             field.setSqlName(sqlName);

@@ -21,25 +21,12 @@ package org.jberger.pergen.exceptions;
  */
 public class AmbiguousFieldNameException extends RuntimeException {
 
-    /**
-     * For serialization.
-     */
-    static final long serialVersionUID = 200711300135666L;
-
-    /**
-     * Creates a new instance.
-     * @param firstField One of the fields.
-     * @param secondField The other field involved.
-     * @param entity The entity containing the fields.
-     * @param code The name of the produced code (like SQL, Java).
-     * @param producedName The result of the transformation.
-     */
-    public AmbiguousFieldNameException(final String firstField,
-                                       final String secondField,
-                                       final String entity, final String code,
-                                       final String producedName) {
-        super("The two fields " + firstField + " and " + secondField
-              + " in entity " + entity + " produces the same " + code
-              + " name: " + producedName + ".");
+    public AmbiguousFieldNameException(final String firstFieldName,
+                                       final String secondFieldName,
+                                       final String entityName,
+                                       final String resultingName) {
+        super("The two fields " + firstFieldName + " and " + secondFieldName
+              + " in entity " + entityName + " produces the same name: "
+              + resultingName + ".");
     }
 }

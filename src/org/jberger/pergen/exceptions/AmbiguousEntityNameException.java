@@ -15,29 +15,13 @@
 
 package org.jberger.pergen.exceptions;
 
-/**
- * Raised when two entities produces the same name after a
- * transformation.
- */
 public class AmbiguousEntityNameException extends RuntimeException {
 
-    /**
-     * For serialization.
-     */
-    static final long serialVersionUID = 200711300130666L;
-
-    /**
-     * Creates a new instance.
-     * @param firstEntity One of the entities.
-     * @param secondEntity The other entity involved.
-     * @param code The name of the produced code (like SQL, Java).
-     * @param producedName The result of the transformation.
-     */
-    public AmbiguousEntityNameException(final String firstEntity,
-                               final String secondEntity,
-                               final String code, final String producedName) {
-        super("The two entities " + firstEntity + " and " + secondEntity
-              + " produces the same " + code + " name: " + producedName
+    public AmbiguousEntityNameException(final String firstEntityName,
+                               final String secondEntityName,
+                               final String producedName) {
+        super("The two entities " + firstEntityName + " and " + secondEntityName
+              + " produces the same name: " + producedName
               + ".");
     }
 }

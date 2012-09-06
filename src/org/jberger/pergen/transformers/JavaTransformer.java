@@ -79,7 +79,7 @@ public final class JavaTransformer {
 	    EntityInformations possibleDuplicate = producedNames.get(codeName);
 	    if (possibleDuplicate != null) {
 		throw new AmbiguousEntityNameException(entity.getOriginalName(),
-		        possibleDuplicate.getOriginalName(), "code", codeName);
+		        possibleDuplicate.getOriginalName(), codeName);
 	    }
 
 	    entity.setCodeName(codeName);
@@ -107,7 +107,7 @@ public final class JavaTransformer {
 	    FieldInformations possibleDuplicate = producedNames.get(codeName);
 	    if (possibleDuplicate != null) {
 		throw new AmbiguousFieldNameException(field.getOriginalName(),
-		        possibleDuplicate.getOriginalName(), entityName, "code", codeName);
+		        possibleDuplicate.getOriginalName(), entityName, codeName);
 	    }
 
 	    field.setCodeName(codeName);

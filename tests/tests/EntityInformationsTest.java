@@ -21,63 +21,39 @@ import org.jberger.pergen.domain.FieldType;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-/**
- * Test class for EntityInformations.
- */
 public class EntityInformationsTest {
 
-    /**
-     * Test the getOriginalName method.
-     */
     @Test
     public final void testGetOriginalName() {
-        EntityInformations entity = new EntityInformations("Rain");
-
-        assertTrue(entity.getOriginalName().equals("Rain"));
-        assertFalse(entity.getOriginalName().equals("Object"));
+        String entityName = "Rain";
+        EntityInformations entity = new EntityInformations(entityName);
+        assertEquals(entityName, entity.getOriginalName());
     }
 
-    /**
-     * Test the addField and isFieldDefined methods.
-     */
     @Test
-    public final void testAddFieldAndIsDefined() {
+    public final void testIsDefined() {
         EntityInformations entity = new EntityInformations("Rain");
-        FieldInformations field = new FieldInformations("field",
+        String fieldName = "field";
+        FieldInformations field = new FieldInformations(fieldName,
                                      FieldType.Type.INTEGER, true);
-
         entity.addField(field);
-        assertTrue(entity.isFieldDefined("field"));
-        assertFalse(entity.isFieldDefined("broken"));
+        assertTrue(entity.isFieldDefined(fieldName));
     }
 
-    /**
-     * Test the getField method.
-     */
     @Test
     public final void testGetField() {
         EntityInformations entity = new EntityInformations("Rain");
-        FieldInformations field = new FieldInformations("field",
+        String fieldName = "field";
+        FieldInformations field = new FieldInformations(fieldName,
                                      FieldType.Type.INTEGER, true);
 
         entity.addField(field);
-        assertTrue(entity.getField("field") == field);
-        assertNull(entity.getField("broken"));
+        assertSame(field, entity.getField(fieldName));
     }
-
-    /**
-     * Test the getFields method.
-     */
+    
     @Test
-    public final void testGetFields() {
-        final int fieldCount = 3;
-        EntityInformations entity = new EntityInformations("entity");
-        entity.addField(new FieldInformations("field1",
-                                              FieldType.Type.INTEGER, true));
-        entity.addField(new FieldInformations("field2",
-                                              FieldType.Type.INTEGER, true));
-        entity.addField(new FieldInformations("field3",
-                                              FieldType.Type.INTEGER, true));
-        assertTrue(entity.getFields().size() == fieldCount);
+    public final void testGetUndefinedField() {
+        EntityInformations entity = new EntityInformations("Rain");
+        assertNull(entity.getField("broken"));
     }
 }
