@@ -17,7 +17,7 @@ package org.jberger.pergen.codeproviders;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import tests.mocks.MockFileWriter;
+import org.jberger.pergen.tests.mock.MockFileWriter;
 
 public class Java6ProviderTest {
     

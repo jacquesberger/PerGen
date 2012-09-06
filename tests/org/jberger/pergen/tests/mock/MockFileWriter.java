@@ -1,4 +1,4 @@
-package tests.mocks;
+package org.jberger.pergen.tests.mock;
 
 import org.jberger.pergen.files.CodeFileWriter;
 
