@@ -18,6 +18,7 @@ package org.jberger.pergen.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
+import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
 import org.jberger.pergen.transformers.JavaTransformer;
 import org.jberger.pergen.transformers.SqlTransformer;
 
@@ -44,7 +45,21 @@ public class Entity {
         return originalName;
     }
 
-    public final void addField(final Field field) {
+    public final void addField(final Field field) throws AmbiguousFieldNameException {
+        for (Field possibleDuplicate : fields.values()) {
+            if (possibleDuplicate.getJavaName().equals(field.getJavaName())) {
+                throw new AmbiguousFieldNameException(field.getOriginalName(),
+                                            possibleDuplicate.getOriginalName(),
+                                            originalName, field.getJavaName());
+            }
+            
+            if (possibleDuplicate.getSqlName().equals(field.getSqlName())) {
+                throw new AmbiguousFieldNameException(field.getOriginalName(),
+                                            possibleDuplicate.getOriginalName(),
+                                            originalName, field.getSqlName());
+            }
+        }
+        
         fields.put(field.getOriginalName(), field);
     }
 

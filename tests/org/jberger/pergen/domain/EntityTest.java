@@ -15,6 +15,7 @@
 
 package org.jberger.pergen.domain;
 
+import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -64,5 +65,24 @@ public class EntityTest {
     public final void testJavaName() {
         Entity entity = new Entity("entity_name");
         assertEquals("EntityName", entity.getJavaName());
+    }
+    
+    @Test(expected=AmbiguousFieldNameException.class)
+    public final void testJavaNameAmbiguity() {
+        Entity entity = new Entity("entity_name");
+        Field field1 = new Field("field_name", FieldType.Type.STRING, false);
+        Field field2 = new Field("field__name", FieldType.Type.STRING, false);
+        entity.addField(field1);
+        entity.addField(field2);
+    }
+    
+    @Test(expected=AmbiguousFieldNameException.class)
+    public final void testSqlNameAmbiguity() {
+        fail("Non testable");
+        Entity entity = new Entity("entity_name");
+        Field field1 = new Field("field_name_test", FieldType.Type.STRING, false);
+        Field field2 = new Field("field_name_test", FieldType.Type.STRING, false);
+        entity.addField(field1);
+        entity.addField(field2);
     }
 }
