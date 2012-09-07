@@ -31,7 +31,7 @@ public class EntityInformationsTest {
     public final void testIsDefined() {
         EntityInformations entity = new EntityInformations("Rain");
         String fieldName = "field";
-        FieldInformations field = new FieldInformations(fieldName,
+        Field field = new Field(fieldName,
                                      FieldType.Type.INTEGER, true);
         entity.addField(field);
         assertTrue(entity.isFieldDefined(fieldName));
@@ -41,7 +41,7 @@ public class EntityInformationsTest {
     public final void testGetField() {
         EntityInformations entity = new EntityInformations("Rain");
         String fieldName = "field";
-        FieldInformations field = new FieldInformations(fieldName,
+        Field field = new Field(fieldName,
                                      FieldType.Type.INTEGER, true);
 
         entity.addField(field);

@@ -18,7 +18,7 @@ package org.jberger.pergen.codeproviders;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.domain.EntityInformations;
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.UnicityConstraint;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.files.CodeFileWriter;
@@ -53,7 +53,7 @@ public final class MySql5Provider {
 	writer.write("CREATE TABLE " + entity.getSqlName() + " (\n");
 	writer.write("  " + entity.getSqlName() + "_ID INTEGER NOT NULL,\n");
 
-	for (FieldInformations field : entity.getFields()) {
+	for (Field field : entity.getFields()) {
 	    writer.write("  " + field.getSqlName() + " " + originalTypeToDatabaseType(field.getOriginalDataType()));
 
 	    Integer length = field.getStringLength();
@@ -127,10 +127,10 @@ public final class MySql5Provider {
 	writer.write("CREATE UNIQUE INDEX INDEX_" + entityName + unicityCount + " ON " + entityName
 	        + "(");
 
-	Collection<FieldInformations> fields = unicity.getFields();
-	Iterator<FieldInformations> iterator = fields.iterator();
+	Collection<Field> fields = unicity.getFields();
+	Iterator<Field> iterator = fields.iterator();
 	while (iterator.hasNext()) {
-	    FieldInformations field = iterator.next();
+	    Field field = iterator.next();
 	    writer.write(field.getSqlName());
 	    if (iterator.hasNext()) {
 		writer.write(", ");

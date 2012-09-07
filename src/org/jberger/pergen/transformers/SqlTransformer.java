@@ -18,7 +18,7 @@ package org.jberger.pergen.transformers;
 import java.util.Collection;
 import java.util.Hashtable;
 import org.jberger.pergen.domain.EntityInformations;
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
@@ -73,21 +73,20 @@ public final class SqlTransformer {
      * @param fields A collection of fields in the entity.
      */
     private static void transformFields(final String entityName,
-                                   final Collection<FieldInformations> fields) {
-        Hashtable<String, FieldInformations> producedNames =
-                                     new Hashtable<String, FieldInformations>();
+                                   final Collection<Field> fields) {
+        Hashtable<String, Field> producedNames =
+                                     new Hashtable<String, Field>();
 
-        for (FieldInformations field : fields) {
-            String sqlName = transformIdentifier(field.getOriginalName());
+        for (Field field : fields) {
+            String sqlName = field.getSqlName();
 
-            FieldInformations possibleDuplicate = producedNames.get(sqlName);
+            Field possibleDuplicate = producedNames.get(sqlName);
             if (possibleDuplicate != null) {
                 throw new AmbiguousFieldNameException(field.getOriginalName(),
                                             possibleDuplicate.getOriginalName(),
                                             entityName, sqlName);
             }
 
-            field.setSqlName(sqlName);
             producedNames.put(sqlName, field);
         }
     }

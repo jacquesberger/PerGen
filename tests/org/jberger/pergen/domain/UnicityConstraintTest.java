@@ -23,16 +23,16 @@ public class UnicityConstraintTest {
     @Test
     public void testUnicityConstraint() {
 	UnicityConstraint constraint = new UnicityConstraint();
-	Collection<FieldInformations> fieldList = constraint.getFields();
+	Collection<Field> fieldList = constraint.getFields();
 	assert(fieldList.isEmpty());
     }
 
     @Test
     public void testAddField() {
 	UnicityConstraint constraint = new UnicityConstraint();
-	FieldInformations fieldInfo = new FieldInformations("age", FieldType.Type.INTEGER, true);
+	Field fieldInfo = new Field("age", FieldType.Type.INTEGER, true);
 	constraint.addField(fieldInfo);
-	Collection<FieldInformations> fieldList = constraint.getFields();
+	Collection<Field> fieldList = constraint.getFields();
 	assert(fieldList.size() == 1);
     }
 }

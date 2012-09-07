@@ -47,7 +47,7 @@ public class EntityInformations {
     /**
      * List of fields in the entity.
      */
-    private Hashtable<String, FieldInformations> fields;
+    private Hashtable<String, Field> fields;
 
     /**
      * Integrity constraints.
@@ -60,7 +60,7 @@ public class EntityInformations {
      */
     public EntityInformations(final String name) {
         originalName = name;
-        fields = new Hashtable<String, FieldInformations>();
+        fields = new Hashtable<String, Field>();
         unicityList = new ArrayList<UnicityConstraint>();
         relations = new ArrayList<Relation>();
     }
@@ -78,7 +78,7 @@ public class EntityInformations {
      * in the entity, the first one will be overidden.
      * @param field The field to add.
      */
-    public final void addField(final FieldInformations field) {
+    public final void addField(final Field field) {
         fields.put(field.getOriginalName(), field);
     }
 
@@ -96,7 +96,7 @@ public class EntityInformations {
      * @param originalFieldName The original name of the field.
      * @return The field if found, null otherwise.
      */
-    public final FieldInformations getField(final String originalFieldName) {
+    public final Field getField(final String originalFieldName) {
         return fields.get(originalFieldName);
     }
 
@@ -128,7 +128,7 @@ public class EntityInformations {
      * Get all the fields.
      * @return A collection of fields.
      */
-    public final Collection<FieldInformations> getFields() {
+    public final Collection<Field> getFields() {
         return fields.values();
     }
 
@@ -182,7 +182,7 @@ public class EntityInformations {
      * @return true if the entity has a DATE field, false otherwise.
      */
     public final boolean hasADateField() {
-        for (FieldInformations field : fields.values()) {
+        for (Field field : fields.values()) {
             if (field.getOriginalDataType() == FieldType.Type.DATE) {
                 return true;
             }

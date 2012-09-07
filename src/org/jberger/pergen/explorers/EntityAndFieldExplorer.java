@@ -27,7 +27,7 @@ import org.jberger.pergen.node.AStringLength;
 import org.jberger.pergen.node.AUnicityDefinition;
 import org.jberger.pergen.analysis.DepthFirstAdapter;
 import org.jberger.pergen.domain.EntityInformations;
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.domain.UnicityConstraint;
@@ -125,7 +125,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
                                                currentEntity.getOriginalName());
         }
 
-        FieldInformations field = new FieldInformations(fieldName,
+        Field field = new Field(fieldName,
                                                         currentDataType,
                                                     node.getRequired() != null);
 
@@ -209,7 +209,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
      */
     private void addFieldToUnicityConstraint(final UnicityConstraint unicity,
                                              final String fieldName) {
-        FieldInformations field = currentEntity.getField(fieldName);
+        Field field = currentEntity.getField(fieldName);
         if (field == null) {
             throw new FieldNotDefinedException(fieldName,
                                                currentEntity.getOriginalName());

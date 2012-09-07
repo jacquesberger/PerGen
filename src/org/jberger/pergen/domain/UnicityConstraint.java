@@ -20,17 +20,17 @@ import java.util.Collection;
 
 public class UnicityConstraint {
 
-    private ArrayList<FieldInformations> fields;
+    private ArrayList<Field> fields;
 
     public UnicityConstraint() {
-	fields = new ArrayList<FieldInformations>();
+	fields = new ArrayList<Field>();
     }
 
-    public void addField(FieldInformations field) {
+    public void addField(Field field) {
 	fields.add(field);
     }
 
-    public final Collection<FieldInformations> getFields() {
+    public final Collection<Field> getFields() {
 	return fields;
     }
 }

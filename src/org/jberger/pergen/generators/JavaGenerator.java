@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.domain.EntityInformations;
 import org.jberger.pergen.domain.Relation;
@@ -138,7 +138,7 @@ public final class JavaGenerator {
                                                         entity.getCodeName());
 
                 Java6Provider.providePOJOsIdGetterSetter(writer);
-                for (FieldInformations field : entity.getFields()) {
+                for (Field field : entity.getFields()) {
                     Java6Provider.providePOJOsFieldAndGetterSetter(writer,
                                                                    field);
                 }

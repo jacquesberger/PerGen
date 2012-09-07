@@ -18,7 +18,7 @@ package org.jberger.pergen.transformers;
 import java.util.Collection;
 import java.util.Hashtable;
 import org.jberger.pergen.domain.EntityInformations;
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
@@ -97,24 +97,18 @@ public final class JavaTransformer {
      *            A collection of fields in the entity.
      */
     private static void transformFields(final String entityName,
-	    final Collection<FieldInformations> fields) {
-	Hashtable<String, FieldInformations> producedNames = new Hashtable<String, FieldInformations>();
+	    final Collection<Field> fields) {
+	Hashtable<String, Field> producedNames = new Hashtable<String, Field>();
 
-	for (FieldInformations field : fields) {
-	    String codeName = snakeCaseIdentifierToCamelCase(field.getOriginalName());
-	    String codeNamePascalCase = snakeCaseIdentifierToPascalCase(field.getOriginalName());
-
-	    FieldInformations possibleDuplicate = producedNames.get(codeName);
+	for (Field field : fields) {
+            String codeName = field.getJavaName();
+	    Field possibleDuplicate = producedNames.get(codeName);
 	    if (possibleDuplicate != null) {
 		throw new AmbiguousFieldNameException(field.getOriginalName(),
 		        possibleDuplicate.getOriginalName(), entityName, codeName);
 	    }
 
-	    field.setCodeName(codeName);
 	    producedNames.put(codeName, field);
-
-	    field.setGetterName("get" + codeNamePascalCase);
-	    field.setSetterName("set" + codeNamePascalCase);
 	}
     }
 

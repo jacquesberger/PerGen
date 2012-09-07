@@ -18,7 +18,7 @@ package org.jberger.pergen.codeproviders;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.domain.EntityInformations;
-import org.jberger.pergen.domain.FieldInformations;
+import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.files.CodeFileWriter;
 import java.io.IOException;
@@ -152,21 +152,21 @@ public final class Java6Provider {
      */
     public static void providePOJOsFieldAndGetterSetter(
                                                  final CodeFileWriter writer,
-                                                 final FieldInformations field)
+                                                 final Field field)
                                                  throws IOException {
         String javaType = mapType(field.getOriginalDataType());
 
-        writer.write("    private " + javaType + " " + field.getCodeName()
+        writer.write("    private " + javaType + " " + field.getJavaName()
                      + " = null;\n\n");
 
         writer.write("    public " + javaType + " " + field.getGetterName()
                      + "() {\n");
-        writer.write("        return " + field.getCodeName() + ";\n");
+        writer.write("        return " + field.getJavaName() + ";\n");
         writer.write("    }\n\n");
 
         writer.write("    public void " + field.getSetterName() + "("
                      + javaType + " newValue) {\n");
-        writer.write("        " + field.getCodeName() + " = newValue"
+        writer.write("        " + field.getJavaName() + " = newValue"
                      + ";\n");
         writer.write("    }\n\n");
     }
@@ -324,7 +324,7 @@ public final class Java6Provider {
                      + ".setId(result.getInt(\"" + entity.getSqlName()
                      + "_ID\"));\n\n");
 
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             writer.write("                " + variableName + "."
                          + field.getSetterName() + "(result."
                          + mapResultSetGetter(field.getOriginalDataType())
@@ -412,7 +412,7 @@ public final class Java6Provider {
                      + ".setId(result.getInt(\"" + entity.getSqlName()
                      + "_ID\"));\n\n");
 
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             writer.write("                " + variableName + "."
                          + field.getSetterName() + "(result."
                          + mapResultSetGetter(field.getOriginalDataType())
@@ -521,13 +521,13 @@ public final class Java6Provider {
                      + entity.getCodeName() + " " + variableName
                      + ") throws NullityException {\n");
 
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             if (field.isRequired()) {
                 writer.write("        if (" + variableName + "."
                              + field.getGetterName() + "() == null) {\n");
                 writer.write("            throw new NullityException(\""
                              + entity.getCodeName() + "\", \""
-                             + field.getCodeName() + "\");\n");
+                             + field.getJavaName() + "\");\n");
                 writer.write("        }\n\n");
             }
         }
@@ -618,7 +618,7 @@ public final class Java6Provider {
                      + "(" + entity.getSqlName() + "_ID");
 
         int questionMarksNumber = 1;
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             questionMarksNumber++;
             writer.write(", " + field.getSqlName());
         }
@@ -636,7 +636,7 @@ public final class Java6Provider {
         writer.write("                query.setInt(1, " + parameter
                      + ".getId().intValue());\n");
         int parameterNumber = 2;
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             writer.write("                query."
                          + mapStatementSetter(field.getOriginalDataType())
                          + "(" + parameterNumber + ", ");
@@ -671,7 +671,7 @@ public final class Java6Provider {
         writer.write("                                \"update "
                      + entity.getSqlName() + " set ");
         int updateParameter = 0;
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             if (updateParameter > 0) {
                 writer.write(", ");
             }
@@ -688,7 +688,7 @@ public final class Java6Provider {
         writer.write(" where " + entity.getSqlName() + "_ID=?\");\n");
 
         int updateParameterNumber = 1;
-        for (FieldInformations field : entity.getFields()) {
+        for (Field field : entity.getFields()) {
             writer.write("                query."
                          + mapStatementSetter(field.getOriginalDataType())
                          + "(" + updateParameterNumber + ", ");
