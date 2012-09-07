@@ -17,7 +17,7 @@ package org.jberger.pergen.codeproviders;
 
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.RelationType;
-import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.UnicityConstraint;
 import org.jberger.pergen.domain.Relation;
@@ -48,7 +48,7 @@ public final class MySql5Provider {
      * @throws IOException
      *             From the file writer.
      */
-    public static void provideStandardCreateTable(final EntityInformations entity,
+    public static void provideStandardCreateTable(final Entity entity,
 	    final CodeFileWriter writer) throws IOException {
 	writer.write("CREATE TABLE " + entity.getSqlName() + " (\n");
 	writer.write("  " + entity.getSqlName() + "_ID INTEGER NOT NULL,\n");

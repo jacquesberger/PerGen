@@ -18,18 +18,18 @@ package org.jberger.pergen.domain;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class EntityInformationsTest {
+public class EntityTest {
 
     @Test
     public final void testGetOriginalName() {
         String entityName = "Rain";
-        EntityInformations entity = new EntityInformations(entityName);
+        Entity entity = new Entity(entityName);
         assertEquals(entityName, entity.getOriginalName());
     }
 
     @Test
     public final void testIsDefined() {
-        EntityInformations entity = new EntityInformations("Rain");
+        Entity entity = new Entity("Rain");
         String fieldName = "field";
         Field field = new Field(fieldName,
                                      FieldType.Type.INTEGER, true);
@@ -39,7 +39,7 @@ public class EntityInformationsTest {
 
     @Test
     public final void testGetField() {
-        EntityInformations entity = new EntityInformations("Rain");
+        Entity entity = new Entity("Rain");
         String fieldName = "field";
         Field field = new Field(fieldName,
                                      FieldType.Type.INTEGER, true);
@@ -50,7 +50,19 @@ public class EntityInformationsTest {
     
     @Test
     public final void testGetUndefinedField() {
-        EntityInformations entity = new EntityInformations("Rain");
+        Entity entity = new Entity("Rain");
         assertNull(entity.getField("broken"));
+    }
+    
+    @Test
+    public final void testSqlName() {
+        Entity entity = new Entity("entity_name");
+        assertEquals("ENTITY_NAME", entity.getSqlName());
+    }
+    
+    @Test
+    public final void testJavaName() {
+        Entity entity = new Entity("entity_name");
+        assertEquals("EntityName", entity.getJavaName());
     }
 }

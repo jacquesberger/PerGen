@@ -17,7 +17,7 @@ package org.jberger.pergen.codeproviders;
 
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.RelationType;
-import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.files.CodeFileWriter;
@@ -114,7 +114,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void providePOJOsImports(final CodeFileWriter writer,
-                                           final EntityInformations entity)
+                                           final Entity entity)
                                            throws IOException {
         if (entity.hasADateField()) {
             writer.write("import java.util.Date;\n");
@@ -299,10 +299,10 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAOGetMethod(final CodeFileWriter writer,
-                                           final EntityInformations entity)
+                                           final Entity entity)
                                            throws IOException {
-        writer.write("    public " + entity.getCodeName() + " get"
-                     + entity.getCodeName() + "(final Integer id) "
+        writer.write("    public " + entity.getJavaName() + " get"
+                     + entity.getJavaName() + "(final Integer id) "
                      + "throws DAOException {\n");
         writer.write("        try {\n");
 
@@ -316,9 +316,9 @@ public final class Java6Provider {
         writer.write("            result.beforeFirst();\n");
         writer.write("            if (result.next()) {\n");
 
-        String variableName = entity.getCodeName().toLowerCase();
-        writer.write("                " + entity.getCodeName()
-                     + " " + variableName + " = new " + entity.getCodeName()
+        String variableName = entity.getJavaName().toLowerCase();
+        writer.write("                " + entity.getJavaName()
+                     + " " + variableName + " = new " + entity.getJavaName()
                      + "();\n");
         writer.write("                " + variableName
                      + ".setId(result.getInt(\"" + entity.getSqlName()
@@ -333,16 +333,16 @@ public final class Java6Provider {
         writer.write("\n");
 
         for (Relation manyToOne : entity.getAllManyToOneRelations()) {
-            EntityInformations link = manyToOne.getEntity();
+            Entity link = manyToOne.getEntity();
             writer.write("                " + variableName + ".set"
-                         + link.getCodeName() + "Id(result.getInt(\""
+                         + link.getJavaName() + "Id(result.getInt(\""
                          + link.getSqlName() + "_ID\"));\n");
         }
         writer.write("\n");
 
         for (Relation many : entity.getAllMANYRelations()) {
-            EntityInformations link = many.getEntity();
-            String statementName = link.getCodeName().toLowerCase() + "s";
+            Entity link = many.getEntity();
+            String statementName = link.getJavaName().toLowerCase() + "s";
             String linkTable = link.getSqlName();
             if (many.isManyToMany()) {
                 linkTable = many.getNameOfLinkTable();
@@ -362,7 +362,7 @@ public final class Java6Provider {
             writer.write("                while (" + resultName
                          + ".next()) {\n");
             writer.write("                    " + variableName + ".add"
-                         + link.getCodeName() + "(" + resultName + ".getInt(\""
+                         + link.getJavaName() + "(" + resultName + ".getInt(\""
                          + link.getSqlName() + "_ID\"));\n");
             writer.write("                }\n\n");
         }
@@ -384,10 +384,10 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAOGetAllMethod(final CodeFileWriter writer,
-                                              final EntityInformations entity)
+                                              final Entity entity)
                                               throws IOException {
-        writer.write("    public ArrayList<" + entity.getCodeName()
-                     + "> getAll" + entity.getCodeName()
+        writer.write("    public ArrayList<" + entity.getJavaName()
+                     + "> getAll" + entity.getJavaName()
                      + "s() throws DAOException {\n");
         writer.write("        try {\n");
 
@@ -398,15 +398,15 @@ public final class Java6Provider {
         writer.write("            ResultSet result = query.executeQuery();\n");
         writer.write("            result.beforeFirst();\n");
 
-        writer.write("            ArrayList<" + entity.getCodeName()
-                     + "> list = new ArrayList<" + entity.getCodeName()
+        writer.write("            ArrayList<" + entity.getJavaName()
+                     + "> list = new ArrayList<" + entity.getJavaName()
                      + ">();\n\n");
 
         writer.write("            while (result.next()) {\n");
 
-        String variableName = entity.getCodeName().toLowerCase();
-        writer.write("                " + entity.getCodeName()
-                     + " " + variableName + " = new " + entity.getCodeName()
+        String variableName = entity.getJavaName().toLowerCase();
+        writer.write("                " + entity.getJavaName()
+                     + " " + variableName + " = new " + entity.getJavaName()
                      + "();\n");
         writer.write("                " + variableName
                      + ".setId(result.getInt(\"" + entity.getSqlName()
@@ -421,16 +421,16 @@ public final class Java6Provider {
         writer.write("\n");
 
         for (Relation manyToOne : entity.getAllManyToOneRelations()) {
-            EntityInformations link = manyToOne.getEntity();
+            Entity link = manyToOne.getEntity();
             writer.write("                " + variableName + ".set"
-                         + link.getCodeName() + "Id(result.getInt(\""
+                         + link.getJavaName() + "Id(result.getInt(\""
                          + link.getSqlName() + "_ID\"));\n");
         }
         writer.write("\n");
 
         for (Relation many : entity.getAllMANYRelations()) {
-            EntityInformations link = many.getEntity();
-            String statementName = link.getCodeName().toLowerCase() + "s";
+            Entity link = many.getEntity();
+            String statementName = link.getJavaName().toLowerCase() + "s";
             String linkTable = link.getSqlName();
             if (many.isManyToMany()) {
                 linkTable = many.getNameOfLinkTable();
@@ -450,7 +450,7 @@ public final class Java6Provider {
             writer.write("                while (" + resultName
                          + ".next()) {\n");
             writer.write("                    " + variableName + ".add"
-                         + link.getCodeName() + "(" + resultName + ".getInt(\""
+                         + link.getJavaName() + "(" + resultName + ".getInt(\""
                          + link.getSqlName() + "_ID\"));\n");
             writer.write("                }\n\n");
         }
@@ -473,7 +473,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAODeleteMethod(final CodeFileWriter writer,
-                                              final EntityInformations entity)
+                                              final Entity entity)
                                               throws IOException {
         writer.write("    public void delete(final Integer id) "
                      + "throws DAOException {\n");
@@ -514,11 +514,11 @@ public final class Java6Provider {
      */
     public static void provideDAOCheckNullityMethod(
                                                final CodeFileWriter writer,
-                                               final EntityInformations entity)
+                                               final Entity entity)
                                                throws IOException {
-        String variableName = entity.getCodeName().toLowerCase();
+        String variableName = entity.getJavaName().toLowerCase();
         writer.write("    protected void checkNullity(final "
-                     + entity.getCodeName() + " " + variableName
+                     + entity.getJavaName() + " " + variableName
                      + ") throws NullityException {\n");
 
         for (Field field : entity.getFields()) {
@@ -526,32 +526,32 @@ public final class Java6Provider {
                 writer.write("        if (" + variableName + "."
                              + field.getGetterName() + "() == null) {\n");
                 writer.write("            throw new NullityException(\""
-                             + entity.getCodeName() + "\", \""
+                             + entity.getJavaName() + "\", \""
                              + field.getJavaName() + "\");\n");
                 writer.write("        }\n\n");
             }
         }
 
         for (Relation relation : entity.getRelations()) {
-            EntityInformations link = relation.getEntity();
+            Entity link = relation.getEntity();
             if (relation.getType() == RelationType.Type.ONE) {
                 writer.write("        if (" + variableName + ".get"
-                             + link.getCodeName() + "Id() == null) {\n");
+                             + link.getJavaName() + "Id() == null) {\n");
                 writer.write("            throw new NullityException(\""
-                             + entity.getCodeName() + "\", \""
-                             + link.getCodeName() + "Id\");\n");
+                             + entity.getJavaName() + "\", \""
+                             + link.getJavaName() + "Id\");\n");
                 writer.write("        }\n\n");
             } else {
                 if (!relation.isMaybeZero()) {
                     writer.write("        if (" + variableName + ".get"
-                                 + link.getCodeName()
+                                 + link.getJavaName()
                                  + "List().size() == 0) {\n");
                     writer.write("            throw new NullityException(\""
-                                 + entity.getCodeName() + "\", \"");
+                                 + entity.getJavaName() + "\", \"");
                     if (relation.isManyToMany()) {
                         writer.write(relation.getNameOfLinkTable() + ":");
                     }
-                    writer.write(link.getCodeName() + "Id\");\n");
+                    writer.write(link.getJavaName() + "Id\");\n");
                     writer.write("        }\n\n");
                 }
             }
@@ -567,7 +567,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAONewIdMethod(final CodeFileWriter writer,
-                                             final EntityInformations entity)
+                                             final Entity entity)
                                              throws IOException {
         writer.write("    protected Integer getNewId() throws DAOException "
                      + "{\n");
@@ -600,10 +600,10 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAOSaveMethod(final CodeFileWriter writer,
-                                            final EntityInformations entity)
+                                            final Entity entity)
                                             throws IOException {
-        String parameter = entity.getCodeName().toLowerCase();
-        writer.write("    public void save(final " + entity.getCodeName()
+        String parameter = entity.getJavaName().toLowerCase();
+        writer.write("    public void save(final " + entity.getJavaName()
                      + " " + parameter + ") throws DAOException, "
                      + "NullityException {\n");
         writer.write("        checkNullity(" + parameter + ");\n\n");
@@ -653,7 +653,7 @@ public final class Java6Provider {
         for (Relation toOne : entity.getAllManyToOneRelations()) {
             writer.write("                query.setInt(" + parameterNumber
                          + ", " + parameter + ".get"
-                         + toOne.getEntity().getCodeName() + "Id());\n");
+                         + toOne.getEntity().getJavaName() + "Id());\n");
             parameterNumber++;
         }
         writer.write("\n");
@@ -705,7 +705,7 @@ public final class Java6Provider {
         for (Relation toOne : entity.getAllManyToOneRelations()) {
             writer.write("                query.setInt("
                          + updateParameterNumber + ", " + parameter + ".get"
-                         + toOne.getEntity().getCodeName() + "Id());\n");
+                         + toOne.getEntity().getJavaName() + "Id());\n");
             updateParameterNumber++;
         }
         writer.write("                query.setInt(" + updateParameterNumber
@@ -715,7 +715,7 @@ public final class Java6Provider {
 
         for (Relation manyToMany : entity.getAllManyToManyRelations()) {
             String variableName = "delete"
-                                  + manyToMany.getEntity().getCodeName();
+                                  + manyToMany.getEntity().getJavaName();
             writer.write("                PreparedStatement " + variableName
                          + " = connection.prepareStatement(\"delete from "
                          + manyToMany.getNameOfLinkTable() + " where "
@@ -737,9 +737,9 @@ public final class Java6Provider {
             writer.write("        try {\n");
 
             for (Relation relation : manyToManyList) {
-                EntityInformations link = relation.getEntity();
+                Entity link = relation.getEntity();
                 writer.write("            for (Integer id : "
-                             + parameter + ".get" + link.getCodeName()
+                             + parameter + ".get" + link.getJavaName()
                              + "List()) {\n");
                 writer.write("                PreparedStatement link = "
                              + "connection.prepareStatement(\n");

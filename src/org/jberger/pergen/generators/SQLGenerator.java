@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import org.jberger.pergen.codeproviders.MySql5Provider;
 
-import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
@@ -48,7 +48,7 @@ public final class SQLGenerator {
 	    final CodeFileWriter writer) throws IOException {
 	ArrayList<String> linkTablesDone = new ArrayList<String>();
 
-	for (EntityInformations entity : global.getEntities()) {
+	for (Entity entity : global.getEntities()) {
 	    for (Relation relation : entity.getRelations()) {
 		if (relation.isManyToMany()) {
 		    if (!linkTablesDone.contains(relation.getNameOfLinkTable())) {
@@ -76,7 +76,7 @@ public final class SQLGenerator {
 	    final CodeFileWriter writer) throws IOException {
 	ArrayList<String> tablesCreated = new ArrayList<String>();
 
-	for (EntityInformations entity : global.getEntities()) {
+	for (Entity entity : global.getEntities()) {
 	    for (Relation relation : entity.getRelations()) {
 		if (relation.isManyToMany()) {
 		    if (!tablesCreated.contains(relation.getNameOfLinkTable())) {
@@ -115,7 +115,7 @@ public final class SQLGenerator {
      */
     private static void buildPrimaryAlterTables(final GlobalInformations global,
 	    final CodeFileWriter writer) throws IOException {
-	for (EntityInformations entity : global.getEntities()) {
+	for (Entity entity : global.getEntities()) {
 	    for (Relation relation : entity.getRelations()) {
 		if (relation.getType() == RelationType.Type.ONE) {
 		    writer.write(MySql5Provider.buildForeignKeyStatement(entity.getSqlName(),
@@ -137,7 +137,7 @@ public final class SQLGenerator {
      */
     private static void buildPrimaryTables(final GlobalInformations global, final CodeFileWriter writer)
 	    throws IOException {
-	for (EntityInformations entity : global.getEntities()) {
+	for (Entity entity : global.getEntities()) {
 	    MySql5Provider.provideStandardCreateTable(entity, writer);
 	}
     }
@@ -154,7 +154,7 @@ public final class SQLGenerator {
      */
     private static void buildUnicityConstraints(final GlobalInformations global,
 	    final CodeFileWriter writer) throws IOException {
-	for (EntityInformations entity : global.getEntities()) {
+	for (Entity entity : global.getEntities()) {
 	    int unicityCount = 1;
 	    for (UnicityConstraint unicity : entity.getUnicityConstraints()) {
 		MySql5Provider.provideUnicityConstraint(unicity, entity.getSqlName(), unicityCount,

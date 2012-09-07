@@ -122,9 +122,9 @@ public final class RelationAnalyzer {
 
             copy.remove(second);
 
-            EntityInformations firstEntity =
+            Entity firstEntity =
                                          infos.getEntity(first.getFromEntity());
-            EntityInformations secondEntity =
+            Entity secondEntity =
                                         infos.getEntity(second.getFromEntity());
 
             if (first.getType() == RelationType.Type.ONE

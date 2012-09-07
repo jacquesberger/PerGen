@@ -28,13 +28,13 @@ public class GlobalInformations {
      * Key: Entity name.
      * Value: Entity object.
      */
-    private Hashtable<String, EntityInformations> entities;
+    private Hashtable<String, Entity> entities;
 
     /**
      * Create a new instance.
      */
     public GlobalInformations() {
-        entities = new Hashtable<String, EntityInformations>();
+        entities = new Hashtable<String, Entity>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class GlobalInformations {
      * @param entity The entity to add. If this entity already exists, it
      *               will be overidden by the new one.
      */
-    public final void addEntity(final EntityInformations entity) {
+    public final void addEntity(final Entity entity) {
         entities.put(entity.getOriginalName(), entity);
     }
 
@@ -60,7 +60,7 @@ public class GlobalInformations {
      * @param entityName The name of the entity to retrieve.
      * @return The entity if found, null otherwise.
      */
-    public final EntityInformations getEntity(final String entityName) {
+    public final Entity getEntity(final String entityName) {
         return entities.get(entityName);
     }
 
@@ -68,7 +68,7 @@ public class GlobalInformations {
      * Get all the entities.
      * @return A collection of entities.
      */
-    public final Collection<EntityInformations> getEntities() {
+    public final Collection<Entity> getEntities() {
         return entities.values();
     }
 }

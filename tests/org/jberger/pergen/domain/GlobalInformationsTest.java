@@ -32,7 +32,7 @@ public class GlobalInformationsTest {
 
         assertFalse(global.isEntityDefined(entityName));
 
-        EntityInformations entity = new EntityInformations(entityName);
+        Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
         assertTrue(global.isEntityDefined(entityName));
@@ -47,7 +47,7 @@ public class GlobalInformationsTest {
         String entityName = "cheese";
         GlobalInformations global = new GlobalInformations();
 
-        EntityInformations entity = new EntityInformations(entityName);
+        Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
         assertNotNull(global.getEntity(entityName));
@@ -61,9 +61,9 @@ public class GlobalInformationsTest {
     public final void testGetEntities() {
         final int entityCount = 3;
         GlobalInformations global = new GlobalInformations();
-        global.addEntity(new EntityInformations("first"));
-        global.addEntity(new EntityInformations("second"));
-        global.addEntity(new EntityInformations("third"));
+        global.addEntity(new Entity("first"));
+        global.addEntity(new Entity("second"));
+        global.addEntity(new Entity("third"));
         assertTrue(global.getEntities().size() == entityCount);
     }
 }

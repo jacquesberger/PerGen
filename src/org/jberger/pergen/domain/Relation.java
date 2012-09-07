@@ -24,7 +24,7 @@ public class Relation {
     /**
      * The entity.
      */
-    private EntityInformations entity;
+    private Entity entity;
 
     /**
      * The relation type.
@@ -56,7 +56,7 @@ public class Relation {
      *                   relation.
      * @param tableLink The name of link table if many-to-many.
      */
-    public Relation(final EntityInformations entityInfo,
+    public Relation(final Entity entityInfo,
                     final RelationType.Type relationType,
                     final boolean canBeZero,
                     final boolean manyToMany,
@@ -72,7 +72,7 @@ public class Relation {
      * Get the entity.
      * @return The entity.
      */
-    public final EntityInformations getEntity() {
+    public final Entity getEntity() {
         return entity;
     }
 

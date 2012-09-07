@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
-import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.files.CodeFileWriter;
@@ -64,8 +64,8 @@ public final class JavaGenerator {
         generateDAOException(realDirectory);
         generateNullityException(realDirectory);
 
-        for (EntityInformations entity : global.getEntities()) {
-            String className = entity.getCodeName() + "DAO";
+        for (Entity entity : global.getEntities()) {
+            String className = entity.getJavaName() + "DAO";
             String fileName = realDirectory + "\\" + className
                               + ".java";
             try {
@@ -73,7 +73,7 @@ public final class JavaGenerator {
                 CodeFileWriter writer = new CodeFileWriter(fileWriter);
                 Java6Provider.provideHeaderComment(writer);
                 Java6Provider.providePackageDeclaration(writer, "daos");
-                Java6Provider.provideDAOsImports(writer, entity.getCodeName());
+                Java6Provider.provideDAOsImports(writer, entity.getJavaName());
                 Java6Provider.provideClassDeclaration(writer, className);
                 Java6Provider.provideDAOsConnectionAndConstructor(writer,
                                                                   className);
@@ -123,8 +123,8 @@ public final class JavaGenerator {
         String realDirectory = directory + "\\pojos";
         new File(realDirectory).mkdir();
 
-        for (EntityInformations entity : global.getEntities()) {
-            String fileName = realDirectory + "\\" + entity.getCodeName()
+        for (Entity entity : global.getEntities()) {
+            String fileName = realDirectory + "\\" + entity.getJavaName()
                               + ".java";
             try {
                 FileWriter fileWriter = new FileWriter(fileName);
@@ -133,9 +133,9 @@ public final class JavaGenerator {
                 Java6Provider.providePackageDeclaration(writer, "pojos");
                 Java6Provider.providePOJOsImports(writer, entity);
                 Java6Provider.provideClassDeclaration(writer,
-                                                      entity.getCodeName());
+                                                      entity.getJavaName());
                 Java6Provider.provideDefaultConstructor(writer,
-                                                        entity.getCodeName());
+                                                        entity.getJavaName());
 
                 Java6Provider.providePOJOsIdGetterSetter(writer);
                 for (Field field : entity.getFields()) {
@@ -147,11 +147,11 @@ public final class JavaGenerator {
                     if (relation.getType() == RelationType.Type.ONE) {
                         Java6Provider.providePOJOsEverythingForAOneRelation(
                                             writer,
-                                            relation.getEntity().getCodeName());
+                                            relation.getEntity().getJavaName());
                     } else {
                         Java6Provider.providePOJOsEverythingForAManyRelation(
                                             writer,
-                                            relation.getEntity().getCodeName());
+                                            relation.getEntity().getJavaName());
                     }
                 }
 

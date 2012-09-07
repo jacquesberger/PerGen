@@ -26,7 +26,7 @@ import org.jberger.pergen.node.AStringDataType;
 import org.jberger.pergen.node.AStringLength;
 import org.jberger.pergen.node.AUnicityDefinition;
 import org.jberger.pergen.analysis.DepthFirstAdapter;
-import org.jberger.pergen.domain.EntityInformations;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.GlobalInformations;
@@ -60,7 +60,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
     /**
      * Current entity during the evaluation of the entity.
      */
-    private EntityInformations currentEntity;
+    private Entity currentEntity;
 
     /**
      * Current unicity constraint during the evaluation of the constraint.
@@ -88,7 +88,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
             throw new EntityAlreadyDefinedException(entityName);
         }
 
-        EntityInformations newEntity = new EntityInformations(entityName);
+        Entity newEntity = new Entity(entityName);
         entitiesInfos.addEntity(newEntity);
         currentEntity = newEntity;
     }
