@@ -18,10 +18,8 @@ package org.jberger.pergen.transformers;
 import java.util.Collection;
 import java.util.HashMap;
 import org.jberger.pergen.domain.Entity;
-import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
 import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
-import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
 
 /**
  * Performs the transformations of original names into code names.
@@ -83,32 +81,6 @@ public final class JavaTransformer {
 	    }
 
 	    producedNames.put(javaName, entity);
-	    transformFields(entity.getOriginalName(), entity.getFields());
 	}
     }
-
-    /**
-     * Transform the field names.
-     * 
-     * @param entityName
-     *            The name of the entity.
-     * @param fields
-     *            A collection of fields in the entity.
-     */
-    private static void transformFields(final String entityName,
-	    final Collection<Field> fields) {
-	HashMap<String, Field> producedNames = new HashMap<String, Field>();
-
-	for (Field field : fields) {
-            String codeName = field.getJavaName();
-	    Field possibleDuplicate = producedNames.get(codeName);
-	    if (possibleDuplicate != null) {
-		throw new AmbiguousFieldNameException(field.getOriginalName(),
-		        possibleDuplicate.getOriginalName(), entityName, codeName);
-	    }
-
-	    producedNames.put(codeName, field);
-	}
-    }
-
 }
