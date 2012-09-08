@@ -36,11 +36,11 @@ public final class RelationAnalyzer {
 
     /**
      * Performs the analysis which consist of validating and building the
-     * real relations in the GlobalInformations class.
+     * real relations in the DataLayerSpecifications class.
      * @param infos The global informations about the entities.
      * @param relations The raw relations.
      */
-    public static void analyse(final GlobalInformations infos,
+    public static void analyse(final DataLayerSpecifications infos,
                                final ArrayList<RawRelation> relations) {
         entityExistenceVerification(infos, relations);
         multipleRelationVerification(relations);
@@ -53,7 +53,7 @@ public final class RelationAnalyzer {
      * @param relations The raw relations.
      */
     private static void entityExistenceVerification(
-                                    final GlobalInformations infos,
+                                    final DataLayerSpecifications infos,
                                     final ArrayList<RawRelation> relations) {
         for (RawRelation relation : relations) {
             if (!infos.isEntityDefined(relation.getToEntity())) {
@@ -94,7 +94,7 @@ public final class RelationAnalyzer {
      * @param infos The global informations about the entities.
      * @param relations The raw relations.
      */
-    private static void buildRelations(final GlobalInformations infos,
+    private static void buildRelations(final DataLayerSpecifications infos,
                                        final ArrayList<RawRelation> relations) {
         ArrayList<RawRelation> copy =
                                      (ArrayList<RawRelation>) relations.clone();

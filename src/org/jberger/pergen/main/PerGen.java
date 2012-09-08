@@ -18,7 +18,7 @@ package org.jberger.pergen.main;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PushbackReader;
-import org.jberger.pergen.domain.GlobalInformations;
+import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.RelationAnalyzer;
 import org.jberger.pergen.explorers.EntityAndFieldExplorer;
 import org.jberger.pergen.explorers.RelationExplorer;
@@ -48,7 +48,7 @@ public final class PerGen {
 	    throws Exception {
 	Node ast = parseInputFile(completeFilePath);
 
-	GlobalInformations global = new GlobalInformations();
+	DataLayerSpecifications global = new DataLayerSpecifications();
 	ast.apply(new EntityAndFieldExplorer(global));
 	RelationExplorer relationExplorer = new RelationExplorer();
 	ast.apply(relationExplorer);
@@ -67,7 +67,7 @@ public final class PerGen {
 	return ast;
     }
 
-    private static void generateCode(String directory, GlobalInformations global) {
+    private static void generateCode(String directory, DataLayerSpecifications global) {
 	SQLGenerator.generate(global, directory + "\\script.sql");
 	JavaGenerator.generatePOJOs(global, directory);
 	JavaGenerator.generateDAOs(global, directory);

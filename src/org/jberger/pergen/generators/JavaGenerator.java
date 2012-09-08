@@ -20,7 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.jberger.pergen.domain.Field;
-import org.jberger.pergen.domain.GlobalInformations;
+import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
@@ -57,7 +57,7 @@ public final class JavaGenerator {
      * @param directory The directory in which the "daos" directory will
      *                  be created.
      */
-    public static void generateDAOs(final GlobalInformations global,
+    public static void generateDAOs(final DataLayerSpecifications global,
                                     final String directory) {
         String realDirectory = directory + "\\daos";
         new File(realDirectory).mkdir();
@@ -118,7 +118,7 @@ public final class JavaGenerator {
      * @param directory The directory in which the "pojos" directory will
      *                  be created.
      */
-    public static void generatePOJOs(final GlobalInformations global,
+    public static void generatePOJOs(final DataLayerSpecifications global,
                                      final String directory) {
         String realDirectory = directory + "\\pojos";
         new File(realDirectory).mkdir();

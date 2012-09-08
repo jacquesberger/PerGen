@@ -29,7 +29,7 @@ import org.jberger.pergen.analysis.DepthFirstAdapter;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
-import org.jberger.pergen.domain.GlobalInformations;
+import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.UnicityConstraint;
 import org.jberger.pergen.exceptions.EntityAlreadyDefinedException;
 import org.jberger.pergen.exceptions.FieldAlreadyDefinedException;
@@ -43,7 +43,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
     /**
      * The data structure to fill with entities and fields informations.
      */
-    private GlobalInformations entitiesInfos;
+    private DataLayerSpecifications entitiesInfos;
 
     /**
      * The current data type used during the evaluation of the data type
@@ -71,7 +71,7 @@ public class EntityAndFieldExplorer extends DepthFirstAdapter {
      * Create a new instance.
      * @param infos The data structure to fill with entities informations.
      */
-    public EntityAndFieldExplorer(final GlobalInformations infos) {
+    public EntityAndFieldExplorer(final DataLayerSpecifications infos) {
         super();
         entitiesInfos = infos;
     }

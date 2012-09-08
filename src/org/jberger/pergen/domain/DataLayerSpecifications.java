@@ -19,11 +19,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 
-public class GlobalInformations {
+public class DataLayerSpecifications {
 
     private HashMap<String, Entity> entities;
 
-    public GlobalInformations() {
+    public DataLayerSpecifications() {
         entities = new HashMap<String, Entity>();
     }
 

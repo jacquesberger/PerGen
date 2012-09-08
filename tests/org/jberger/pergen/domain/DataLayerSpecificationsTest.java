@@ -19,12 +19,12 @@ import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class GlobalInformationsTest {
+public class DataLayerSpecificationsTest {
 
     @Test
     public final void testIsEntityDefined() {
         String entityName = "cheese";
-        GlobalInformations global = new GlobalInformations();
+        DataLayerSpecifications global = new DataLayerSpecifications();
 
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
@@ -35,7 +35,7 @@ public class GlobalInformationsTest {
     @Test
     public final void testGetEntity() {
         String entityName = "cheese";
-        GlobalInformations global = new GlobalInformations();
+        DataLayerSpecifications global = new DataLayerSpecifications();
 
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
@@ -45,7 +45,7 @@ public class GlobalInformationsTest {
 
     @Test
     public final void testGetEntities() {
-        GlobalInformations global = new GlobalInformations();
+        DataLayerSpecifications global = new DataLayerSpecifications();
         global.addEntity(new Entity("first"));
         global.addEntity(new Entity("second"));
         global.addEntity(new Entity("third"));
@@ -54,7 +54,7 @@ public class GlobalInformationsTest {
     
     @Test(expected=AmbiguousEntityNameException.class)
     public final void testDuplicateEntityName() {
-        GlobalInformations global = new GlobalInformations();
+        DataLayerSpecifications global = new DataLayerSpecifications();
         global.addEntity(new Entity("entity_name"));
         global.addEntity(new Entity("entity__name"));
     }
