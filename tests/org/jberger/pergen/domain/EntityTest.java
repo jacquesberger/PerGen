@@ -75,14 +75,4 @@ public class EntityTest {
         entity.addField(field1);
         entity.addField(field2);
     }
-    
-    @Test(expected=AmbiguousFieldNameException.class)
-    public final void testSqlNameAmbiguity() {
-        fail("Non testable");
-        Entity entity = new Entity("entity_name");
-        Field field1 = new Field("field_name_test", FieldType.Type.STRING, false);
-        Field field2 = new Field("field_name_test", FieldType.Type.STRING, false);
-        entity.addField(field1);
-        entity.addField(field2);
-    }
 }

@@ -52,12 +52,6 @@ public class Entity {
                                             possibleDuplicate.getOriginalName(),
                                             originalName, field.getJavaName());
             }
-            
-            if (possibleDuplicate.getSqlName().equals(field.getSqlName())) {
-                throw new AmbiguousFieldNameException(field.getOriginalName(),
-                                            possibleDuplicate.getOriginalName(),
-                                            originalName, field.getSqlName());
-            }
         }
         
         fields.put(field.getOriginalName(), field);
