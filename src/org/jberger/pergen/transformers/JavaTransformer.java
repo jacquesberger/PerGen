@@ -15,9 +15,6 @@
 
 package org.jberger.pergen.transformers;
 
-/**
- * Performs the transformations of original names into code names.
- */
 public final class JavaTransformer {
 
     public static String snakeCaseIdentifierToPascalCase(String identifier) {

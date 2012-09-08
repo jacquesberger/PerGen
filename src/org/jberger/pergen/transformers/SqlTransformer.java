@@ -15,9 +15,6 @@
 
 package org.jberger.pergen.transformers;
 
-/**
- * Performs the transformations of original names into sql names.
- */
 public final class SqlTransformer {
 
     public static String transformIdentifier(String identifier) {
