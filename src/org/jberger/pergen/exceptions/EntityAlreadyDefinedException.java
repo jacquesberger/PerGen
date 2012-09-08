@@ -15,20 +15,8 @@
 
 package org.jberger.pergen.exceptions;
 
-/**
- * Exception raised when an entity is defined more than once.
- */
 public class EntityAlreadyDefinedException extends RuntimeException {
 
-    /**
-     * For serialization.
-     */
-    static final long serialVersionUID = 200710270152666L;
-
-    /**
-     * Create a new Exception.
-     * @param entityName The name of the entity defined more than once.
-     */
     public EntityAlreadyDefinedException(final String entityName) {
         super("The entity " + entityName + " is already defined.");
     }

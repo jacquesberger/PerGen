@@ -15,10 +15,6 @@
 
 package org.jberger.pergen.exceptions;
 
-/**
- * Raised when two entities produces the same name after a
- * transformation.
- */
 public class AmbiguousFieldNameException extends RuntimeException {
 
     public AmbiguousFieldNameException(final String firstFieldName,

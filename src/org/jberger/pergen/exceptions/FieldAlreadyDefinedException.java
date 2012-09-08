@@ -15,22 +15,8 @@
 
 package org.jberger.pergen.exceptions;
 
-/**
- * Exception raised when a field is defined more than once in an entity.
- * Each field name must be unique in an entity.
- */
 public class FieldAlreadyDefinedException extends RuntimeException {
 
-    /**
-     * For serialization.
-     */
-    static final long serialVersionUID = 200711030227666L;
-
-    /**
-     * Creates the exception.
-     * @param fieldName The name of the field in violation.
-     * @param entityName The name of the entity containing the field.
-     */
     public FieldAlreadyDefinedException(final String fieldName,
                                         final String entityName) {
         super("The field " + fieldName + " is defined more than once in "
