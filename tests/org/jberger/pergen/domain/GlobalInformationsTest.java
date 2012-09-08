@@ -15,6 +15,7 @@
 
 package org.jberger.pergen.domain;
 
+import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -49,5 +50,12 @@ public class GlobalInformationsTest {
         global.addEntity(new Entity("second"));
         global.addEntity(new Entity("third"));
         assertEquals(3, global.getEntities().size());
+    }
+    
+    @Test(expected=AmbiguousEntityNameException.class)
+    public final void testDuplicateEntityName() {
+        GlobalInformations global = new GlobalInformations();
+        global.addEntity(new Entity("entity_name"));
+        global.addEntity(new Entity("entity__name"));
     }
 }

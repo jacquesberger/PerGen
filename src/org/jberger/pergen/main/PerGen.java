@@ -28,8 +28,6 @@ import org.jberger.pergen.generators.SQLGenerator;
 import org.jberger.pergen.lexer.Lexer;
 import org.jberger.pergen.node.Node;
 import org.jberger.pergen.parser.Parser;
-import org.jberger.pergen.transformers.JavaTransformer;
-import org.jberger.pergen.transformers.SqlTransformer;
 
 public final class PerGen {
 
@@ -55,7 +53,6 @@ public final class PerGen {
 	RelationExplorer relationExplorer = new RelationExplorer();
 	ast.apply(relationExplorer);
 
-	applyCodeTransformations(global);
 	RelationAnalyzer.analyse(global, relationExplorer.getRelations());
 	generateCode(FilePath.extractDirectory(completeFilePath), global);
     }
@@ -68,11 +65,6 @@ public final class PerGen {
 	Parser parser = new Parser(lexer);
 	Node ast = parser.parse();
 	return ast;
-    }
-
-    private static void applyCodeTransformations(GlobalInformations global) {
-	SqlTransformer.transform(global);
-	JavaTransformer.transform(global);
     }
 
     private static void generateCode(String directory, GlobalInformations global) {

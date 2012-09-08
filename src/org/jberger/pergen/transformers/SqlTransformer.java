@@ -15,53 +15,10 @@
 
 package org.jberger.pergen.transformers;
 
-import java.util.Collection;
-import java.util.HashMap;
-import org.jberger.pergen.domain.Entity;
-import org.jberger.pergen.domain.GlobalInformations;
-import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
-
 /**
  * Performs the transformations of original names into sql names.
  */
 public final class SqlTransformer {
-
-    /**
-     * To avoid instanciation.
-     */
-    private SqlTransformer() {
-    }
-
-    /**
-     * Apply the sql transformations to the entities and fields.
-     * @param infos The global informations.
-     */
-    public static void transform(final GlobalInformations infos) {
-        transformEntities(infos.getEntities());
-    }
-
-    /**
-     * Transform the entity names.
-     * @param entities A collection of entities.
-     */
-    private static void transformEntities(
-                                final Collection<Entity> entities) {
-        HashMap<String, Entity> producedNames =
-                                    new HashMap<String, Entity>();
-
-        for (Entity entity : entities) {
-            String sqlName = entity.getSqlName();
-
-            Entity possibleDuplicate = producedNames.get(sqlName);
-            if (possibleDuplicate != null) {
-                throw new AmbiguousEntityNameException(entity.getOriginalName(),
-                                            possibleDuplicate.getOriginalName(),
-                                            sqlName);
-            }
-
-            producedNames.put(sqlName, entity);
-        }
-    }
 
     public static String transformIdentifier(String identifier) {
 	return identifier.toUpperCase();

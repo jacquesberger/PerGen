@@ -17,6 +17,7 @@ package org.jberger.pergen.domain;
 
 import java.util.Collection;
 import java.util.HashMap;
+import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
 
 /**
  * Contains all the entities.
@@ -43,6 +44,13 @@ public class GlobalInformations {
      *               will be overidden by the new one.
      */
     public final void addEntity(final Entity entity) {
+        for (Entity possibleDuplicate : entities.values()) {
+            if (possibleDuplicate.getJavaName().equals(entity.getJavaName())) {
+                throw new AmbiguousEntityNameException(entity.getOriginalName(),
+		        possibleDuplicate.getOriginalName(), entity.getJavaName());
+            }
+        }
+        
         entities.put(entity.getOriginalName(), entity);
     }
 
