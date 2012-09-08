@@ -15,15 +15,22 @@
  */
 package org.jberger.pergen.main;
 
-public class ConsoleWriter {
+import org.jberger.pergen.files.PrintStreamWrapper;
 
-    public static void displayUsage() {
-        System.out.println("Wrong parameters...");
-        System.out.println("Use : java PerGen <file>");
-        System.out.println("<file> = absolute or relative file path, " + "no spaces allowed");
+public class MessageWriter {
+    private PrintStreamWrapper out;
+    
+    public MessageWriter(PrintStreamWrapper out) {
+        this.out = out;
+    }
+
+    public void displayUsage() {
+        out.println("Wrong parameters...");
+        out.println("Use : java PerGen <file>");
+        out.println("<file> = absolute or relative file path, " + "no spaces allowed");
     }
     
-    public static void displayErrorMessage(Exception e) {
-        System.out.println("Error: " + e.getLocalizedMessage());
+    public void displayErrorMessage(Exception e) {
+        out.println("Error: " + e.getLocalizedMessage());
     }
 }

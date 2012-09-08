@@ -23,6 +23,7 @@ import org.jberger.pergen.domain.RelationAnalyzer;
 import org.jberger.pergen.explorers.EntityAndFieldExplorer;
 import org.jberger.pergen.explorers.RelationExplorer;
 import org.jberger.pergen.files.FilePath;
+import org.jberger.pergen.files.PrintStreamWrapper;
 import org.jberger.pergen.generators.JavaGenerator;
 import org.jberger.pergen.generators.SQLGenerator;
 import org.jberger.pergen.lexer.Lexer;
@@ -32,15 +33,16 @@ import org.jberger.pergen.parser.Parser;
 public final class PerGen {
 
     public static void main(final String[] args) {
+        MessageWriter writer = new MessageWriter(new PrintStreamWrapper(System.out));
 	if (args.length != 1) {
-	    ConsoleWriter.displayUsage();
+	    writer.displayUsage();
 	    System.exit(1);
 	}
 
 	try {
 	    generateCodeFromUserSpecifications(args[0]);
 	} catch (Exception e) {
-            ConsoleWriter.displayErrorMessage(e);
+            writer.displayErrorMessage(e);
 	}
     }
 
