@@ -16,8 +16,7 @@
 package org.jberger.pergen.domain;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-
+import java.util.HashMap;
 import org.jberger.pergen.exceptions.BidirectionalRelationException;
 import org.jberger.pergen.exceptions.EntityNotDefinedException;
 import org.jberger.pergen.exceptions.MultipleRelationException;
@@ -44,7 +43,7 @@ public final class RelationAnalyzer {
     public static void analyse(final GlobalInformations infos,
                                final ArrayList<RawRelation> relations) {
         entityExistenceVerification(infos, relations);
-        multipleRelationVerification(infos, relations);
+        multipleRelationVerification(relations);
         buildRelations(infos, relations);
     }
 
@@ -66,14 +65,12 @@ public final class RelationAnalyzer {
 
     /**
      * Verify if an entity defines multiple relations to the same entity.
-     * @param infos The global informations about the entities.
      * @param relations The raw relations.
      */
     private static void multipleRelationVerification(
-                                       final GlobalInformations infos,
                                        final ArrayList<RawRelation> relations) {
-        Hashtable<String, ArrayList<String>> table =
-                                     new Hashtable<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> table =
+                                       new HashMap<String, ArrayList<String>>();
         for (RawRelation relation : relations) {
             ArrayList<String> relationList =
                                             table.get(relation.getFromEntity());

@@ -16,7 +16,7 @@
 package org.jberger.pergen.transformers;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.GlobalInformations;
@@ -48,8 +48,8 @@ public final class SqlTransformer {
      */
     private static void transformEntities(
                                 final Collection<Entity> entities) {
-        Hashtable<String, Entity> producedNames =
-                                    new Hashtable<String, Entity>();
+        HashMap<String, Entity> producedNames =
+                                    new HashMap<String, Entity>();
 
         for (Entity entity : entities) {
             String sqlName = entity.getSqlName();
@@ -73,8 +73,8 @@ public final class SqlTransformer {
      */
     private static void transformFields(final String entityName,
                                    final Collection<Field> fields) {
-        Hashtable<String, Field> producedNames =
-                                     new Hashtable<String, Field>();
+        HashMap<String, Field> producedNames =
+                                     new HashMap<String, Field>();
 
         for (Field field : fields) {
             String sqlName = field.getSqlName();

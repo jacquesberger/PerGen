@@ -17,7 +17,7 @@ package org.jberger.pergen.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
 import org.jberger.pergen.transformers.JavaTransformer;
 import org.jberger.pergen.transformers.SqlTransformer;
@@ -28,12 +28,12 @@ public class Entity {
     private String sqlName;
     private String javaName;
     private ArrayList<UnicityConstraint> unicityList;
-    private Hashtable<String, Field> fields;
+    private HashMap<String, Field> fields;
     private ArrayList<Relation> relations;
 
     public Entity(final String name) {
         originalName = name;
-        fields = new Hashtable<String, Field>();
+        fields = new HashMap<String, Field>();
         unicityList = new ArrayList<UnicityConstraint>();
         relations = new ArrayList<Relation>();
         

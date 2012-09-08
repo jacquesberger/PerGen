@@ -16,7 +16,7 @@
 package org.jberger.pergen.domain;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  * Contains all the entities.
@@ -28,13 +28,13 @@ public class GlobalInformations {
      * Key: Entity name.
      * Value: Entity object.
      */
-    private Hashtable<String, Entity> entities;
+    private HashMap<String, Entity> entities;
 
     /**
      * Create a new instance.
      */
     public GlobalInformations() {
-        entities = new Hashtable<String, Entity>();
+        entities = new HashMap<String, Entity>();
     }
 
     /**
