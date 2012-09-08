@@ -17,31 +17,20 @@ package org.jberger.pergen.domain;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-/**
- * Tests for the GlobalInformations class.
- */
+
 public class GlobalInformationsTest {
 
-    /**
-     * Test the addEntity and isEntityDefined methods.
-     */
     @Test
-    public final void testAddEntityIsEntityDefined() {
+    public final void testIsEntityDefined() {
         String entityName = "cheese";
         GlobalInformations global = new GlobalInformations();
-
-        assertFalse(global.isEntityDefined(entityName));
 
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
         assertTrue(global.isEntityDefined(entityName));
-        assertFalse(global.isEntityDefined("other"));
     }
 
-    /**
-     * Test the getEntity method.
-     */
     @Test
     public final void testGetEntity() {
         String entityName = "cheese";
@@ -50,20 +39,15 @@ public class GlobalInformationsTest {
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
-        assertNotNull(global.getEntity(entityName));
-        assertNull(global.getEntity("other"));
+        assertSame(entity, global.getEntity(entityName));
     }
 
-    /**
-     * Test the getEntities method.
-     */
     @Test
     public final void testGetEntities() {
-        final int entityCount = 3;
         GlobalInformations global = new GlobalInformations();
         global.addEntity(new Entity("first"));
         global.addEntity(new Entity("second"));
         global.addEntity(new Entity("third"));
-        assertTrue(global.getEntities().size() == entityCount);
+        assertEquals(3, global.getEntities().size());
     }
 }
