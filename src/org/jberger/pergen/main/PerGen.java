@@ -42,13 +42,14 @@ public final class PerGen {
 
 	try {
             String inputFileContent = FileLoader.loadFileIntoString(args[0]);
-	    generateCodeFromUserSpecifications(inputFileContent);
+            String workingDirectory = FilePath.extractDirectory(args[0]);
+	    generateCodeFromUserSpecifications(inputFileContent, workingDirectory);
 	} catch (Exception e) {
             writer.displayErrorMessage(e);
 	}
     }
 
-    private static void generateCodeFromUserSpecifications(String inputFileContent)
+    private static void generateCodeFromUserSpecifications(String inputFileContent, String workingDirectory)
 	    throws Exception {
 	Node ast = parseInputFile(inputFileContent);
 
@@ -58,7 +59,7 @@ public final class PerGen {
 	ast.apply(relationExplorer);
 
 	RelationAnalyzer.analyse(global, relationExplorer.getRelations());
-	generateCode(FilePath.extractDirectory(inputFileContent), global);
+	generateCode(workingDirectory, global);
     }
 
     private static Node parseInputFile(String inputFileContent) throws Exception {
