@@ -32,6 +32,12 @@ import org.jberger.pergen.codeproviders.Java6Provider;
  */
 public final class JavaGenerator {
 
+    public static void generate(final DataLayerSpecifications global,
+                                    final String directory) {
+        generateDAOs(global, directory);
+        generatePOJOs(global, directory);
+    }
+    
     /**
      * Generates the DAOException.java file.
      * @param directory The directory in which the file must be created.
@@ -57,7 +63,7 @@ public final class JavaGenerator {
      * @param directory The directory in which the "daos" directory will
      *                  be created.
      */
-    public static void generateDAOs(final DataLayerSpecifications global,
+    private static void generateDAOs(final DataLayerSpecifications global,
                                     final String directory) {
         String realDirectory = directory + "\\daos";
         new File(realDirectory).mkdir();
@@ -118,7 +124,7 @@ public final class JavaGenerator {
      * @param directory The directory in which the "pojos" directory will
      *                  be created.
      */
-    public static void generatePOJOs(final DataLayerSpecifications global,
+    private static void generatePOJOs(final DataLayerSpecifications global,
                                      final String directory) {
         String realDirectory = directory + "\\pojos";
         new File(realDirectory).mkdir();

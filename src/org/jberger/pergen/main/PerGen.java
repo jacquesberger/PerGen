@@ -15,7 +15,6 @@
 
 package org.jberger.pergen.main;
 
-import org.jberger.pergen.output.MessageWriter;
 import java.io.BufferedReader;
 import java.io.PushbackReader;
 import java.io.StringReader;
@@ -30,6 +29,7 @@ import org.jberger.pergen.generators.JavaGenerator;
 import org.jberger.pergen.generators.SQLGenerator;
 import org.jberger.pergen.lexer.Lexer;
 import org.jberger.pergen.node.Node;
+import org.jberger.pergen.output.MessageWriter;
 import org.jberger.pergen.parser.Parser;
 
 public final class PerGen {
@@ -75,7 +75,6 @@ public final class PerGen {
 
     private static void generateCode(String directory, DataLayerSpecifications global) {
 	SQLGenerator.generate(global, directory + "\\script.sql");
-	JavaGenerator.generatePOJOs(global, directory);
-	JavaGenerator.generateDAOs(global, directory);
+	JavaGenerator.generate(global, directory);
     }
 }
