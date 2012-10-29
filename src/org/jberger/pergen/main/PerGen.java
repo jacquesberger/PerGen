@@ -44,23 +44,24 @@ public final class PerGen {
 	try {
             String inputFileContent = FileLoader.loadFileIntoString(args[0]);
             String workingDirectory = FilePath.extractDirectory(args[0]);
-	    generateCodeFromUserSpecifications(inputFileContent, workingDirectory);
+	    DataLayerSpecifications specs = extractSpecificationsFromInputFile(inputFileContent, workingDirectory);
+            generateCode(workingDirectory, specs);
 	} catch (Exception e) {
             writer.displayErrorMessage(e);
 	}
     }
 
-    private static void generateCodeFromUserSpecifications(String inputFileContent, String workingDirectory)
+    private static DataLayerSpecifications extractSpecificationsFromInputFile(String inputFileContent, String workingDirectory)
 	    throws Exception {
 	Node ast = parseInputFile(inputFileContent);
 
-	DataLayerSpecifications global = new DataLayerSpecifications();
-	ast.apply(new EntityAndFieldExplorer(global));
+	DataLayerSpecifications specs = new DataLayerSpecifications();
+	ast.apply(new EntityAndFieldExplorer(specs));
 	RelationExplorer relationExplorer = new RelationExplorer();
 	ast.apply(relationExplorer);
 
-	RelationAnalyzer.analyse(global, relationExplorer.getRelations());
-	generateCode(workingDirectory, global);
+	RelationAnalyzer.analyse(specs, relationExplorer.getRelations());
+	return specs;
     }
 
     private static Node parseInputFile(String inputFileContent) throws Exception {
