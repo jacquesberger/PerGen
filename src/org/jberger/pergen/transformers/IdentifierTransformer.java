@@ -15,7 +15,7 @@
 
 package org.jberger.pergen.transformers;
 
-public final class JavaTransformer {
+public final class IdentifierTransformer {
 
     public static String snakeCaseIdentifierToPascalCase(String identifier) {
 	char[] workString = snakeCaseIdentifierToCamelCase(identifier).toCharArray();
@@ -43,7 +43,7 @@ public final class JavaTransformer {
 	return new String(workString).replace("_", "");
     }
     
-    public static String transformIdentifier(String identifier) {
+    public static String snakeCaseIdentifierToSqlStandardCase(String identifier) {
 	return identifier.toUpperCase();
     }
 }

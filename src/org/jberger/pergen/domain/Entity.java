@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
-import org.jberger.pergen.transformers.JavaTransformer;
+import org.jberger.pergen.transformers.IdentifierTransformer;
 
 public class Entity {
 
@@ -36,8 +36,8 @@ public class Entity {
         unicityList = new ArrayList<UnicityConstraint>();
         relations = new ArrayList<Relation>();
         
-        sqlName = JavaTransformer.transformIdentifier(originalName);
-        javaName = JavaTransformer.snakeCaseIdentifierToPascalCase(originalName);
+        sqlName = IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase(originalName);
+        javaName = IdentifierTransformer.snakeCaseIdentifierToPascalCase(originalName);
     }
 
     public final String getOriginalName() {

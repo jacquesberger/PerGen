@@ -15,7 +15,7 @@
 
 package org.jberger.pergen.domain;
 
-import org.jberger.pergen.transformers.JavaTransformer;
+import org.jberger.pergen.transformers.IdentifierTransformer;
 
 public class Field {
 
@@ -74,9 +74,9 @@ public class Field {
     }
 
     private void generateCodeNames() {
-        String methodSuffix = JavaTransformer.snakeCaseIdentifierToPascalCase(originalName);
-        sqlName = JavaTransformer.transformIdentifier(originalName);
-        javaName = JavaTransformer.snakeCaseIdentifierToCamelCase(originalName);
+        String methodSuffix = IdentifierTransformer.snakeCaseIdentifierToPascalCase(originalName);
+        sqlName = IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase(originalName);
+        javaName = IdentifierTransformer.snakeCaseIdentifierToCamelCase(originalName);
         getterName = "get" + methodSuffix;
         setterName = "set" + methodSuffix;
     }

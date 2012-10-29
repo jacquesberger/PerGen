@@ -18,116 +18,116 @@ package org.jberger.pergen.transformers;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-public class JavaTransformerTest {
+public class IdentifierTransformerTest {
 
     @Test
     public void testCamelCaseOneWord() {
-	assertEquals("test", JavaTransformer.snakeCaseIdentifierToCamelCase("test"));
+	assertEquals("test", IdentifierTransformer.snakeCaseIdentifierToCamelCase("test"));
     }
     
     @Test
     public void testPascalCaseOneWord() {
-	assertEquals("Test", JavaTransformer.snakeCaseIdentifierToPascalCase("test"));
+	assertEquals("Test", IdentifierTransformer.snakeCaseIdentifierToPascalCase("test"));
     }
 
     @Test
     public void testCamelCaseTwoWords() {
-	assertEquals("testWord", JavaTransformer.snakeCaseIdentifierToCamelCase("test_word"));
+	assertEquals("testWord", IdentifierTransformer.snakeCaseIdentifierToCamelCase("test_word"));
     }
     
     @Test
     public void testPascalCaseTwoWords() {
-	assertEquals("TestWord", JavaTransformer.snakeCaseIdentifierToPascalCase("test_word"));
+	assertEquals("TestWord", IdentifierTransformer.snakeCaseIdentifierToPascalCase("test_word"));
     }
     
     @Test
     public void testCamelCaseTwoWordsUpCase() {
-	assertEquals("testWord", JavaTransformer.snakeCaseIdentifierToCamelCase("TEST_WORD"));
+	assertEquals("testWord", IdentifierTransformer.snakeCaseIdentifierToCamelCase("TEST_WORD"));
     }
     
     @Test
     public void testPascalCaseTwoWordsUpCase() {
-	assertEquals("TestWord", JavaTransformer.snakeCaseIdentifierToPascalCase("TEST_WORD"));
+	assertEquals("TestWord", IdentifierTransformer.snakeCaseIdentifierToPascalCase("TEST_WORD"));
     }
     
     @Test
     public void testCamelCaseTwoWordsMultipleUnderScore() {
-	assertEquals("testWord", JavaTransformer.snakeCaseIdentifierToCamelCase("TEST__WORD"));
+	assertEquals("testWord", IdentifierTransformer.snakeCaseIdentifierToCamelCase("TEST__WORD"));
     }
     
     @Test
     public void testPascalCaseTwoWordsMultipleUnderScore() {
-	assertEquals("TestWord", JavaTransformer.snakeCaseIdentifierToPascalCase("TEST__WORD"));
+	assertEquals("TestWord", IdentifierTransformer.snakeCaseIdentifierToPascalCase("TEST__WORD"));
     }
 
     
     @Test
     public void testCamelCaseMultipleWords() {
-	assertEquals("thisTestIsSuperLong", JavaTransformer.snakeCaseIdentifierToCamelCase("this_test_is_super_long"));
+	assertEquals("thisTestIsSuperLong", IdentifierTransformer.snakeCaseIdentifierToCamelCase("this_test_is_super_long"));
     }
     
     @Test
     public void testPascalCaseMultipleWords() {
-	assertEquals("ThisTestIsSuperLong", JavaTransformer.snakeCaseIdentifierToPascalCase("this_test_is_super_long"));
+	assertEquals("ThisTestIsSuperLong", IdentifierTransformer.snakeCaseIdentifierToPascalCase("this_test_is_super_long"));
     }
     
     @Test
     public void testMultipleUnderscore() {
-	assertEquals("thisTest", JavaTransformer.snakeCaseIdentifierToCamelCase("this_____test"));
+	assertEquals("thisTest", IdentifierTransformer.snakeCaseIdentifierToCamelCase("this_____test"));
     }
     
     @Test
     public void testBeginningWithUnderscore() {
-	assertEquals("thisIsTesting", JavaTransformer.snakeCaseIdentifierToCamelCase("_this_is_testing"));
+	assertEquals("thisIsTesting", IdentifierTransformer.snakeCaseIdentifierToCamelCase("_this_is_testing"));
     }
     
     @Test
     public void testBeginningWithUnderscorePascalCase() {
-	assertEquals("ThisIsTesting", JavaTransformer.snakeCaseIdentifierToPascalCase("_this_is_testing"));
+	assertEquals("ThisIsTesting", IdentifierTransformer.snakeCaseIdentifierToPascalCase("_this_is_testing"));
     }
     
     @Test
     public void testFinishingWithUnderscore() {
-	assertEquals("thisIsTesting", JavaTransformer.snakeCaseIdentifierToCamelCase("this_is_testing_"));
+	assertEquals("thisIsTesting", IdentifierTransformer.snakeCaseIdentifierToCamelCase("this_is_testing_"));
     }
     
     @Test
     public void testEmptyString() {
-	assertEquals("", JavaTransformer.snakeCaseIdentifierToCamelCase(""));
+	assertEquals("", IdentifierTransformer.snakeCaseIdentifierToCamelCase(""));
     }
     
     @Test
     public void testEmptyStringPascalCase() {
-	assertEquals("", JavaTransformer.snakeCaseIdentifierToPascalCase(""));
+	assertEquals("", IdentifierTransformer.snakeCaseIdentifierToPascalCase(""));
     }
     
     @Test
     public void testOnlyUnderscores() {
-	assertEquals("", JavaTransformer.snakeCaseIdentifierToCamelCase("____"));
+	assertEquals("", IdentifierTransformer.snakeCaseIdentifierToCamelCase("____"));
     }
     
     @Test
     public void testOnlyUnderscoresPascalCase() {
-	assertEquals("", JavaTransformer.snakeCaseIdentifierToPascalCase("____"));
+	assertEquals("", IdentifierTransformer.snakeCaseIdentifierToPascalCase("____"));
     }
     
         @Test
     public void testTransformIdentifierNormal() {
-	assertEquals(JavaTransformer.transformIdentifier("first_name"), "FIRST_NAME");
+	assertEquals(IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase("first_name"), "FIRST_NAME");
     }
 
     @Test
     public void testTransformIdentifierMixed() {
-	assertEquals(JavaTransformer.transformIdentifier("Last_Name"), "LAST_NAME");
+	assertEquals(IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase("Last_Name"), "LAST_NAME");
     }
     
     @Test
     public void testTransformIdentifierNumber() {
-	assertEquals(JavaTransformer.transformIdentifier("address2"), "ADDRESS2");
+	assertEquals(IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase("address2"), "ADDRESS2");
     }
     
     @Test
     public void testTransformIdentifierEmpty() {
-	assertEquals(JavaTransformer.transformIdentifier(""), "");
+	assertEquals(IdentifierTransformer.snakeCaseIdentifierToSqlStandardCase(""), "");
     }
 }
