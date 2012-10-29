@@ -42,4 +42,8 @@ public final class JavaTransformer {
 
 	return new String(workString).replace("_", "");
     }
+    
+    public static String transformIdentifier(String identifier) {
+	return identifier.toUpperCase();
+    }
 }

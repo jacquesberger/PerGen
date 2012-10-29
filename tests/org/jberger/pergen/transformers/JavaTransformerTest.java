@@ -110,4 +110,24 @@ public class JavaTransformerTest {
     public void testOnlyUnderscoresPascalCase() {
 	assertEquals("", JavaTransformer.snakeCaseIdentifierToPascalCase("____"));
     }
+    
+        @Test
+    public void testTransformIdentifierNormal() {
+	assertEquals(JavaTransformer.transformIdentifier("first_name"), "FIRST_NAME");
+    }
+
+    @Test
+    public void testTransformIdentifierMixed() {
+	assertEquals(JavaTransformer.transformIdentifier("Last_Name"), "LAST_NAME");
+    }
+    
+    @Test
+    public void testTransformIdentifierNumber() {
+	assertEquals(JavaTransformer.transformIdentifier("address2"), "ADDRESS2");
+    }
+    
+    @Test
+    public void testTransformIdentifierEmpty() {
+	assertEquals(JavaTransformer.transformIdentifier(""), "");
+    }
 }
