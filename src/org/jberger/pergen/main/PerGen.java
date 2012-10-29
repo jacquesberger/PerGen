@@ -15,22 +15,13 @@
 
 package org.jberger.pergen.main;
 
-import java.io.BufferedReader;
-import java.io.PushbackReader;
-import java.io.StringReader;
 import org.jberger.pergen.domain.DataLayerSpecifications;
-import org.jberger.pergen.domain.RelationAnalyzer;
-import org.jberger.pergen.explorers.EntityAndFieldExplorer;
-import org.jberger.pergen.explorers.RelationExplorer;
 import org.jberger.pergen.files.FileLoader;
 import org.jberger.pergen.files.FilePath;
 import org.jberger.pergen.files.PrintStreamWrapper;
 import org.jberger.pergen.generators.JavaGenerator;
 import org.jberger.pergen.generators.SQLGenerator;
-import org.jberger.pergen.lexer.Lexer;
-import org.jberger.pergen.node.Node;
 import org.jberger.pergen.output.MessageWriter;
-import org.jberger.pergen.parser.Parser;
 
 public final class PerGen {
 
@@ -44,35 +35,14 @@ public final class PerGen {
 	try {
             String inputFileContent = FileLoader.loadFileIntoString(args[0]);
             String workingDirectory = FilePath.extractDirectory(args[0]);
-	    DataLayerSpecifications specs = extractSpecificationsFromInputFile(inputFileContent, workingDirectory);
+            InputFileParser parser = new InputFileParser(inputFileContent);
+	    DataLayerSpecifications specs = parser.extractSpecifications();
             generateCode(workingDirectory, specs);
 	} catch (Exception e) {
             writer.displayErrorMessage(e);
 	}
     }
 
-    private static DataLayerSpecifications extractSpecificationsFromInputFile(String inputFileContent, String workingDirectory)
-	    throws Exception {
-	Node ast = parseInputFile(inputFileContent);
-
-	DataLayerSpecifications specs = new DataLayerSpecifications();
-	ast.apply(new EntityAndFieldExplorer(specs));
-	RelationExplorer relationExplorer = new RelationExplorer();
-	ast.apply(relationExplorer);
-
-	RelationAnalyzer.analyse(specs, relationExplorer.getRelations());
-	return specs;
-    }
-
-    private static Node parseInputFile(String inputFileContent) throws Exception {
-	PushbackReader lecture = new PushbackReader(new BufferedReader(new StringReader(
-	        inputFileContent)));
-
-	Lexer lexer = new Lexer(lecture);
-	Parser parser = new Parser(lexer);
-	Node ast = parser.parse();
-	return ast;
-    }
 
     private static void generateCode(String directory, DataLayerSpecifications global) {
 	SQLGenerator.generate(global, directory + "\\script.sql");
