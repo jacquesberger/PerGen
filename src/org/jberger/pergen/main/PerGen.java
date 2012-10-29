@@ -75,6 +75,7 @@ public final class PerGen {
 
     private static void generateCode(String directory, DataLayerSpecifications global) {
 	SQLGenerator.generate(global, directory + "\\script.sql");
-	JavaGenerator.generate(global, directory);
+        JavaGenerator java = new JavaGenerator(directory);
+	java.generate(global);
     }
 }

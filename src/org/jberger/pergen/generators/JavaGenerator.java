@@ -32,18 +32,22 @@ import org.jberger.pergen.codeproviders.Java6Provider;
  */
 public final class JavaGenerator {
 
-    public static void generate(final DataLayerSpecifications global,
-                                    final String directory) {
-        generateDAOs(global, directory);
-        generatePOJOs(global, directory);
+    String directory;
+    
+    public JavaGenerator(String dir) {
+        directory = dir;
+    }
+    
+    public void generate(final DataLayerSpecifications global) {
+        generateDAOs(global);
+        generatePOJOs(global);
     }
     
     /**
      * Generates the DAOException.java file.
-     * @param directory The directory in which the file must be created.
      */
-    private static void generateDAOException(final String directory) {
-        String fileName = directory + "\\DAOException.java";
+    private void generateDAOException(String workingDirectory) {
+        String fileName = workingDirectory + "\\DAOException.java";
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             CodeFileWriter writer = new CodeFileWriter(fileWriter);
@@ -60,11 +64,8 @@ public final class JavaGenerator {
      * Generates the DAOs (Data Access Object - containing the JDBC code)
      * corresponding to the entities.
      * @param global All the entities.
-     * @param directory The directory in which the "daos" directory will
-     *                  be created.
      */
-    private static void generateDAOs(final DataLayerSpecifications global,
-                                    final String directory) {
+    private void generateDAOs(final DataLayerSpecifications global) {
         String realDirectory = directory + "\\daos";
         new File(realDirectory).mkdir();
         generateDAOException(realDirectory);
@@ -101,10 +102,9 @@ public final class JavaGenerator {
 
     /**
      * Generates the NullityException.java file.
-     * @param directory The directory in which the file must be created.
      */
-    private static void generateNullityException(final String directory) {
-        String fileName = directory + "\\NullityException.java";
+    private void generateNullityException(String workingDirectory) {
+        String fileName = workingDirectory + "\\NullityException.java";
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             CodeFileWriter writer = new CodeFileWriter(fileWriter);
@@ -121,11 +121,8 @@ public final class JavaGenerator {
      * Generates the POJOs (Plain-Old Java Object) corresponding to the
      * entities.
      * @param global All the entities.
-     * @param directory The directory in which the "pojos" directory will
-     *                  be created.
      */
-    private static void generatePOJOs(final DataLayerSpecifications global,
-                                     final String directory) {
+    private void generatePOJOs(final DataLayerSpecifications global) {
         String realDirectory = directory + "\\pojos";
         new File(realDirectory).mkdir();
 
@@ -167,11 +164,5 @@ public final class JavaGenerator {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * To avoid instanciation.
-     */
-    private JavaGenerator() {
     }
 }
