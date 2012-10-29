@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jberger.pergen.main;
+package org.jberger.pergen.output;
 
+import org.jberger.pergen.output.MessageWriter;
 import org.jberger.pergen.tests.mock.MockPrintStream;
 import org.junit.Test;
 import static org.junit.Assert.*;

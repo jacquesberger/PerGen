@@ -15,6 +15,7 @@
 
 package org.jberger.pergen.main;
 
+import org.jberger.pergen.output.MessageWriter;
 import java.io.BufferedReader;
 import java.io.PushbackReader;
 import java.io.StringReader;
