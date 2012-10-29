@@ -16,12 +16,13 @@
 package org.jberger.pergen.main;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.PushbackReader;
+import java.io.StringReader;
 import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.RelationAnalyzer;
 import org.jberger.pergen.explorers.EntityAndFieldExplorer;
 import org.jberger.pergen.explorers.RelationExplorer;
+import org.jberger.pergen.files.FileLoader;
 import org.jberger.pergen.files.FilePath;
 import org.jberger.pergen.files.PrintStreamWrapper;
 import org.jberger.pergen.generators.JavaGenerator;
@@ -40,15 +41,16 @@ public final class PerGen {
 	}
 
 	try {
-	    generateCodeFromUserSpecifications(args[0]);
+            String inputFileContent = FileLoader.loadFileIntoString(args[0]);
+	    generateCodeFromUserSpecifications(inputFileContent);
 	} catch (Exception e) {
             writer.displayErrorMessage(e);
 	}
     }
 
-    private static void generateCodeFromUserSpecifications(String completeFilePath)
+    private static void generateCodeFromUserSpecifications(String inputFileContent)
 	    throws Exception {
-	Node ast = parseInputFile(completeFilePath);
+	Node ast = parseInputFile(inputFileContent);
 
 	DataLayerSpecifications global = new DataLayerSpecifications();
 	ast.apply(new EntityAndFieldExplorer(global));
@@ -56,12 +58,12 @@ public final class PerGen {
 	ast.apply(relationExplorer);
 
 	RelationAnalyzer.analyse(global, relationExplorer.getRelations());
-	generateCode(FilePath.extractDirectory(completeFilePath), global);
+	generateCode(FilePath.extractDirectory(inputFileContent), global);
     }
 
-    private static Node parseInputFile(String completeFilePath) throws Exception {
-	PushbackReader lecture = new PushbackReader(new BufferedReader(new FileReader(
-	        completeFilePath)));
+    private static Node parseInputFile(String inputFileContent) throws Exception {
+	PushbackReader lecture = new PushbackReader(new BufferedReader(new StringReader(
+	        inputFileContent)));
 
 	Lexer lexer = new Lexer(lecture);
 	Parser parser = new Parser(lexer);
