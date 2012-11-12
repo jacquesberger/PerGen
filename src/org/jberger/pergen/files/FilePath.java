@@ -15,12 +15,13 @@
  */
 package org.jberger.pergen.files;
 
-import java.io.File;
-
 public class FilePath {
 
     public static String extractDirectory(String completeFilePath) {
-        int lastIndex = completeFilePath.lastIndexOf(File.pathSeparator);
+        int lastIndex = completeFilePath.lastIndexOf("/");
+        if (lastIndex == -1) {
+            lastIndex = completeFilePath.lastIndexOf("\\");
+        }
         if (lastIndex == -1) {
             return "";
         } else {
