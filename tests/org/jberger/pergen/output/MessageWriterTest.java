@@ -15,15 +15,10 @@
  */
 package org.jberger.pergen.output;
 
-import org.jberger.pergen.output.MessageWriter;
 import org.jberger.pergen.tests.mock.MockPrintStream;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
-/**
- *
- * @author Jack
- */
 public class MessageWriterTest {
     
     @Test

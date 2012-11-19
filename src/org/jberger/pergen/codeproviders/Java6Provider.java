@@ -15,14 +15,14 @@
 
 package org.jberger.pergen.codeproviders;
 
-import org.jberger.pergen.domain.FieldType;
-import org.jberger.pergen.domain.RelationType;
-import org.jberger.pergen.domain.Entity;
-import org.jberger.pergen.domain.Field;
-import org.jberger.pergen.domain.Relation;
-import org.jberger.pergen.files.CodeFileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.jberger.pergen.domain.Entity;
+import org.jberger.pergen.domain.Field;
+import org.jberger.pergen.domain.FieldType;
+import org.jberger.pergen.domain.Relation;
+import org.jberger.pergen.domain.RelationType;
+import org.jberger.pergen.files.CodeFileWriter;
 
 /**
  * Provides all the Java code.
