@@ -26,7 +26,7 @@ import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.domain.UnicityConstraint;
-import org.jberger.pergen.files.CodeFileWriter;
+import org.jberger.pergen.files.FileWriterWrapper;
 
 /**
  * Generates the SQL script.
@@ -45,7 +45,7 @@ public final class SQLGenerator {
      *             From the file writer.
      */
     private static void buildManyToManyAlterTables(final DataLayerSpecifications global,
-	    final CodeFileWriter writer) throws IOException {
+	    final FileWriterWrapper writer) throws IOException {
 	ArrayList<String> linkTablesDone = new ArrayList<String>();
 
 	for (Entity entity : global.getEntities()) {
@@ -73,7 +73,7 @@ public final class SQLGenerator {
      *             From the file writer.
      */
     private static void buildManyToManyLinkTables(final DataLayerSpecifications global,
-	    final CodeFileWriter writer) throws IOException {
+	    final FileWriterWrapper writer) throws IOException {
 	ArrayList<String> tablesCreated = new ArrayList<String>();
 
 	for (Entity entity : global.getEntities()) {
@@ -114,7 +114,7 @@ public final class SQLGenerator {
      *             From the file writer.
      */
     private static void buildPrimaryAlterTables(final DataLayerSpecifications global,
-	    final CodeFileWriter writer) throws IOException {
+	    final FileWriterWrapper writer) throws IOException {
 	for (Entity entity : global.getEntities()) {
 	    for (Relation relation : entity.getRelations()) {
 		if (relation.getType() == RelationType.Type.ONE) {
@@ -135,7 +135,7 @@ public final class SQLGenerator {
      * @throws IOException
      *             From the file writer.
      */
-    private static void buildPrimaryTables(final DataLayerSpecifications global, final CodeFileWriter writer)
+    private static void buildPrimaryTables(final DataLayerSpecifications global, final FileWriterWrapper writer)
 	    throws IOException {
 	for (Entity entity : global.getEntities()) {
 	    MySql5Provider.provideStandardCreateTable(entity, writer);
@@ -153,7 +153,7 @@ public final class SQLGenerator {
      *             From the file writer.
      */
     private static void buildUnicityConstraints(final DataLayerSpecifications global,
-	    final CodeFileWriter writer) throws IOException {
+	    final FileWriterWrapper writer) throws IOException {
 	for (Entity entity : global.getEntities()) {
 	    int unicityCount = 1;
 	    for (UnicityConstraint unicity : entity.getUnicityConstraints()) {
@@ -175,7 +175,7 @@ public final class SQLGenerator {
     public static void generate(final DataLayerSpecifications global, final String fileName) {
 	try {
 	    FileWriter fileWriter = new FileWriter(fileName);
-	    CodeFileWriter writer = new CodeFileWriter(fileWriter);
+	    FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
 	    buildPrimaryTables(global, writer);
 	    buildManyToManyLinkTables(global, writer);
 	    buildPrimaryAlterTables(global, writer);

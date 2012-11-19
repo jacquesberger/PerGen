@@ -1,8 +1,8 @@
 package org.jberger.pergen.tests.mock;
 
-import org.jberger.pergen.files.CodeFileWriter;
+import org.jberger.pergen.files.FileWriterWrapper;
 
-public class MockFileWriter extends CodeFileWriter {
+public class MockFileWriter extends FileWriterWrapper {
 
     private String writtenData = "";
 

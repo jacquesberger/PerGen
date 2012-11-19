@@ -18,11 +18,11 @@ package org.jberger.pergen.files;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CodeFileWriter {
+public class FileWriterWrapper {
 
     private FileWriter writer;
     
-    public CodeFileWriter(FileWriter writer) {
+    public FileWriterWrapper(FileWriter writer) {
 	this.writer = writer;
     }
     

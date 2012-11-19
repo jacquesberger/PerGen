@@ -22,7 +22,7 @@ import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
-import org.jberger.pergen.files.CodeFileWriter;
+import org.jberger.pergen.files.FileWriterWrapper;
 
 /**
  * Provides all the Java code.
@@ -40,7 +40,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public static void provideHeaderComment(final CodeFileWriter writer)
+    public static void provideHeaderComment(final FileWriterWrapper writer)
                                             throws IOException {
         writer.write("/*\n");
         writer.write(" * This file was generated with the PerGen tool.\n");
@@ -54,7 +54,7 @@ public final class Java6Provider {
      * @param packageName The package name.
      * @throws IOException From the file writer.
      */
-    public static void providePackageDeclaration(final CodeFileWriter writer,
+    public static void providePackageDeclaration(final FileWriterWrapper writer,
                                                  final String packageName)
                                                  throws IOException {
         writer.write("package " + packageName + ";\n\n");
@@ -66,13 +66,13 @@ public final class Java6Provider {
      * @param className The class name.
      * @throws IOException From the file writer.
      */
-    public static void provideClassDeclaration(final CodeFileWriter writer,
+    public static void provideClassDeclaration(final FileWriterWrapper writer,
                                                final String className)
                                                throws IOException {
         writer.write("public class " + className + " {\n\n");
     }
 
-    public static void provideDefaultConstructor(final CodeFileWriter writer,
+    public static void provideDefaultConstructor(final FileWriterWrapper writer,
                                                  final String className)
                                                  throws IOException {
         writer.write("    public " + className + "() {\n");
@@ -84,7 +84,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public static void providePOJOsIdGetterSetter(final CodeFileWriter writer)
+    public static void providePOJOsIdGetterSetter(final FileWriterWrapper writer)
                                               throws IOException {
         writer.write("    private Integer id = null;\n\n");
 
@@ -102,7 +102,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public static void provideClassEnd(final CodeFileWriter writer)
+    public static void provideClassEnd(final FileWriterWrapper writer)
                                        throws IOException {
         writer.write("}\n");
     }
@@ -113,7 +113,7 @@ public final class Java6Provider {
      * @param entity The entity of the generating class.
      * @throws IOException From the file writer.
      */
-    public static void providePOJOsImports(final CodeFileWriter writer,
+    public static void providePOJOsImports(final FileWriterWrapper writer,
                                            final Entity entity)
                                            throws IOException {
         if (entity.hasADateField()) {
@@ -132,7 +132,7 @@ public final class Java6Provider {
      * @param entityCodeName The entity class to import in the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAOsImports(final CodeFileWriter writer,
+    public static void provideDAOsImports(final FileWriterWrapper writer,
                                           final String entityCodeName)
                                           throws IOException {
         writer.write("import java.sql.Connection;\n");
@@ -151,7 +151,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void providePOJOsFieldAndGetterSetter(
-                                                 final CodeFileWriter writer,
+                                                 final FileWriterWrapper writer,
                                                  final Field field)
                                                  throws IOException {
         String javaType = mapType(field.getOriginalDataType());
@@ -180,7 +180,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void providePOJOsEverythingForAOneRelation(
-                                                final CodeFileWriter writer,
+                                                final FileWriterWrapper writer,
                                                 final String entityCodeName)
                                                 throws IOException {
         char[] workingName = entityCodeName.toCharArray();
@@ -209,7 +209,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void providePOJOsEverythingForAManyRelation(
-                                               final CodeFileWriter writer,
+                                               final FileWriterWrapper writer,
                                                final String entityCodeName)
                                                throws IOException {
         char[] workingName = entityCodeName.toCharArray();
@@ -244,7 +244,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAOsConnectionAndConstructor(
-                                                        final CodeFileWriter writer,
+                                                        final FileWriterWrapper writer,
                                                         final String className)
                                                         throws IOException {
         writer.write("    private Connection connection = null;\n\n");
@@ -260,7 +260,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public static void provideDAOExceptionClass(final CodeFileWriter writer)
+    public static void provideDAOExceptionClass(final FileWriterWrapper writer)
                                                 throws IOException {
         writer.write("public class DAOException extends Exception {\n\n");
         writer.write("    static final long serialVersionUID = "
@@ -277,7 +277,7 @@ public final class Java6Provider {
      * @param writer The file writer.
      * @throws IOException From the file writer.
      */
-    public static void provideNullityExceptionClass(final CodeFileWriter writer)
+    public static void provideNullityExceptionClass(final FileWriterWrapper writer)
                                                     throws IOException {
         writer.write("public class NullityException extends Exception {\n\n");
         writer.write("    static final long serialVersionUID = "
@@ -298,7 +298,7 @@ public final class Java6Provider {
      * @param entity The entity of the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAOGetMethod(final CodeFileWriter writer,
+    public static void provideDAOGetMethod(final FileWriterWrapper writer,
                                            final Entity entity)
                                            throws IOException {
         writer.write("    public " + entity.getJavaName() + " get"
@@ -383,7 +383,7 @@ public final class Java6Provider {
      * @param entity The entity of the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAOGetAllMethod(final CodeFileWriter writer,
+    public static void provideDAOGetAllMethod(final FileWriterWrapper writer,
                                               final Entity entity)
                                               throws IOException {
         writer.write("    public ArrayList<" + entity.getJavaName()
@@ -472,7 +472,7 @@ public final class Java6Provider {
      * @param entity The entity of the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAODeleteMethod(final CodeFileWriter writer,
+    public static void provideDAODeleteMethod(final FileWriterWrapper writer,
                                               final Entity entity)
                                               throws IOException {
         writer.write("    public void delete(final Integer id) "
@@ -513,7 +513,7 @@ public final class Java6Provider {
      * @throws IOException From the file writer.
      */
     public static void provideDAOCheckNullityMethod(
-                                               final CodeFileWriter writer,
+                                               final FileWriterWrapper writer,
                                                final Entity entity)
                                                throws IOException {
         String variableName = entity.getJavaName().toLowerCase();
@@ -566,7 +566,7 @@ public final class Java6Provider {
      * @param entity The entity of the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAONewIdMethod(final CodeFileWriter writer,
+    public static void provideDAONewIdMethod(final FileWriterWrapper writer,
                                              final Entity entity)
                                              throws IOException {
         writer.write("    protected Integer getNewId() throws DAOException "
@@ -599,7 +599,7 @@ public final class Java6Provider {
      * @param entity The entity of the DAO.
      * @throws IOException From the file writer.
      */
-    public static void provideDAOSaveMethod(final CodeFileWriter writer,
+    public static void provideDAOSaveMethod(final FileWriterWrapper writer,
                                             final Entity entity)
                                             throws IOException {
         String parameter = entity.getJavaName().toLowerCase();

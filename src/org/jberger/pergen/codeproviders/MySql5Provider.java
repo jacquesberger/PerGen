@@ -21,7 +21,7 @@ import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.UnicityConstraint;
 import org.jberger.pergen.domain.Relation;
-import org.jberger.pergen.files.CodeFileWriter;
+import org.jberger.pergen.files.FileWriterWrapper;
 import org.jberger.pergen.generators.SQLGenerator;
 import java.io.IOException;
 import java.util.Collection;
@@ -49,7 +49,7 @@ public final class MySql5Provider {
      *             From the file writer.
      */
     public static void provideStandardCreateTable(final Entity entity,
-	    final CodeFileWriter writer) throws IOException {
+	    final FileWriterWrapper writer) throws IOException {
 	writer.write("CREATE TABLE " + entity.getSqlName() + " (\n");
 	writer.write("  " + entity.getSqlName() + "_ID INTEGER NOT NULL,\n");
 
@@ -122,7 +122,7 @@ public final class MySql5Provider {
      *             From the file writer.
      */
     public static void provideUnicityConstraint(final UnicityConstraint unicity,
-	    final String entityName, final int unicityCount, final CodeFileWriter writer)
+	    final String entityName, final int unicityCount, final FileWriterWrapper writer)
 	    throws IOException {
 	writer.write("CREATE UNIQUE INDEX INDEX_" + entityName + unicityCount + " ON " + entityName
 	        + "(");

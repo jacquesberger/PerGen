@@ -53,4 +53,24 @@ public class Java6ProviderTest {
                 + "    }\n"
                 + "\n", fileWriter.getWrittenData());
     }
+
+    @Test
+    public void testProvidePOJOsEverythingForAManyRelation() throws IOException {
+        MockFileWriter fileWriter = new MockFileWriter();
+        Java6Provider.providePOJOsEverythingForAManyRelation(fileWriter, "EntityCodeName");
+        assertEquals("    private ArrayList<Integer> entityCodeNameList = new ArrayList<Integer>();\n"
+                + "\n"
+                + "    public void addEntityCodeName(Integer entityCodeNameId) {\n"
+                + "        entityCodeNameList.add(entityCodeNameId);\n"
+                + "    }\n"
+                + "\n"
+                + "    public void removeEntityCodeName(Integer entityCodeNameId) {\n"
+                + "        entityCodeNameList.remove(entityCodeNameId);\n"
+                + "    }\n"
+                + "\n"
+                + "    public ArrayList<Integer> getEntityCodeNameList() {\n"
+                + "        return entityCodeNameList;\n"
+                + "    }\n"
+                + "\n", fileWriter.getWrittenData());
+    }
 }

@@ -24,7 +24,7 @@ import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
-import org.jberger.pergen.files.CodeFileWriter;
+import org.jberger.pergen.files.FileWriterWrapper;
 import org.jberger.pergen.codeproviders.Java6Provider;
 
 /**
@@ -50,7 +50,7 @@ public final class JavaGenerator {
         String fileName = workingDirectory + "\\DAOException.java";
         try {
             FileWriter fileWriter = new FileWriter(fileName);
-            CodeFileWriter writer = new CodeFileWriter(fileWriter);
+            FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
             Java6Provider.provideHeaderComment(writer);
             Java6Provider.providePackageDeclaration(writer, "daos");
             Java6Provider.provideDAOExceptionClass(writer);
@@ -77,7 +77,7 @@ public final class JavaGenerator {
                               + ".java";
             try {
                 FileWriter fileWriter = new FileWriter(fileName);
-                CodeFileWriter writer = new CodeFileWriter(fileWriter);
+                FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
                 Java6Provider.provideHeaderComment(writer);
                 Java6Provider.providePackageDeclaration(writer, "daos");
                 Java6Provider.provideDAOsImports(writer, entity.getJavaName());
@@ -107,7 +107,7 @@ public final class JavaGenerator {
         String fileName = workingDirectory + "\\NullityException.java";
         try {
             FileWriter fileWriter = new FileWriter(fileName);
-            CodeFileWriter writer = new CodeFileWriter(fileWriter);
+            FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
             Java6Provider.provideHeaderComment(writer);
             Java6Provider.providePackageDeclaration(writer, "daos");
             Java6Provider.provideNullityExceptionClass(writer);
@@ -131,7 +131,7 @@ public final class JavaGenerator {
                               + ".java";
             try {
                 FileWriter fileWriter = new FileWriter(fileName);
-                CodeFileWriter writer = new CodeFileWriter(fileWriter);
+                FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
                 Java6Provider.provideHeaderComment(writer);
                 Java6Provider.providePackageDeclaration(writer, "pojos");
                 Java6Provider.providePOJOsImports(writer, entity);
