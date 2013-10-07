@@ -45,14 +45,7 @@ public class Entity {
     }
 
     public final void addField(final Field field) throws AmbiguousFieldNameException {
-        for (Field possibleDuplicate : fields.values()) {
-            if (possibleDuplicate.getJavaName().equals(field.getJavaName())) {
-                throw new AmbiguousFieldNameException(field.getOriginalName(),
-                                            possibleDuplicate.getOriginalName(),
-                                            originalName, field.getJavaName());
-            }
-        }
-        
+        validateAmbiguousFieldName(field);
         fields.put(field.getOriginalName(), field);
     }
 
@@ -149,5 +142,15 @@ public class Entity {
             }
         }
         return returnList;
+    }
+
+    private void validateAmbiguousFieldName(final Field field) throws AmbiguousFieldNameException {
+        for (Field possibleDuplicate : fields.values()) {
+            if (possibleDuplicate.getJavaName().equals(field.getJavaName())) {
+                throw new AmbiguousFieldNameException(field.getOriginalName(),
+                                            possibleDuplicate.getOriginalName(),
+                                            originalName, field.getJavaName());
+            }
+        }
     }
 }
