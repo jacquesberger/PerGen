@@ -38,7 +38,7 @@ public final class JavaGenerator {
         directory = dir;
     }
     
-    public void generate(final DataLayerSpecifications global) {
+    public void generate(final DataLayerSpecifications global) throws IOException {
         generateDAOs(global);
         generatePOJOs(global);
     }
@@ -60,43 +60,14 @@ public final class JavaGenerator {
         }
     }
 
-    /**
-     * Generates the DAOs (Data Access Object - containing the JDBC code)
-     * corresponding to the entities.
-     * @param global All the entities.
-     */
-    private void generateDAOs(final DataLayerSpecifications global) {
+    private void generateDAOs(DataLayerSpecifications specs) throws IOException {
         String realDirectory = directory + "\\daos";
         new File(realDirectory).mkdir();
         generateDAOException(realDirectory);
         generateNullityException(realDirectory);
 
-        for (Entity entity : global.getEntities()) {
-            String className = entity.getJavaName() + "DAO";
-            String fileName = realDirectory + "\\" + className
-                              + ".java";
-            try {
-                FileWriter fileWriter = new FileWriter(fileName);
-                FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
-                Java6Provider.provideHeaderComment(writer);
-                Java6Provider.providePackageDeclaration(writer, "daos");
-                Java6Provider.provideDAOsImports(writer, entity.getJavaName());
-                Java6Provider.provideClassDeclaration(writer, className);
-                Java6Provider.provideDAOsConnectionAndConstructor(writer,
-                                                                  className);
-
-                Java6Provider.provideDAOGetMethod(writer, entity);
-                Java6Provider.provideDAOGetAllMethod(writer, entity);
-                Java6Provider.provideDAODeleteMethod(writer, entity);
-                Java6Provider.provideDAOCheckNullityMethod(writer, entity);
-                Java6Provider.provideDAONewIdMethod(writer, entity);
-                Java6Provider.provideDAOSaveMethod(writer, entity);
-
-                Java6Provider.provideClassEnd(writer);
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        for (Entity entity : specs.getEntities()) {
+            generateDaoFile(entity, realDirectory);
         }
     }
 
@@ -164,5 +135,31 @@ public final class JavaGenerator {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void generateDaoJavaCode(FileWriterWrapper writer, Entity entity, String className) throws IOException {
+        Java6Provider.provideHeaderComment(writer);
+        Java6Provider.providePackageDeclaration(writer, "daos");
+        Java6Provider.provideDAOsImports(writer, entity.getJavaName());
+        Java6Provider.provideClassDeclaration(writer, className);
+        Java6Provider.provideDAOsConnectionAndConstructor(writer, className);
+
+        Java6Provider.provideDAOGetMethod(writer, entity);
+        Java6Provider.provideDAOGetAllMethod(writer, entity);
+        Java6Provider.provideDAODeleteMethod(writer, entity);
+        Java6Provider.provideDAOCheckNullityMethod(writer, entity);
+        Java6Provider.provideDAONewIdMethod(writer, entity);
+        Java6Provider.provideDAOSaveMethod(writer, entity);
+
+        Java6Provider.provideClassEnd(writer);
+    }
+
+    private void generateDaoFile(Entity entity, String realDirectory) throws IOException {
+        String className = entity.getJavaName() + "DAO";
+        String fileName = realDirectory + "\\" + className + ".java";
+        FileWriter fileWriter = new FileWriter(fileName);
+        FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
+        generateDaoJavaCode(writer, entity, className);
+        fileWriter.close();
     }
 }
