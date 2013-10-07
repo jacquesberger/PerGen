@@ -23,9 +23,9 @@ import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.domain.RelationAnalyzer;
 import org.jberger.pergen.explorers.EntityAndFieldExplorer;
 import org.jberger.pergen.explorers.RelationExplorer;
-import org.jberger.pergen.lexer.Lexer;
-import org.jberger.pergen.node.Node;
-import org.jberger.pergen.parser.Parser;
+import org.jberger.pergen.generated.lexer.Lexer;
+import org.jberger.pergen.generated.node.Node;
+import org.jberger.pergen.generated.parser.Parser;
 
 public class InputFileParser {
     

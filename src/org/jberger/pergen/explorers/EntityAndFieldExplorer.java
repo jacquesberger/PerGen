@@ -16,16 +16,16 @@
 package org.jberger.pergen.explorers;
 
 
-import org.jberger.pergen.node.ADateDataType;
-import org.jberger.pergen.node.AEntityDefinition;
-import org.jberger.pergen.node.AFieldDefinition;
-import org.jberger.pergen.node.AIntegerDataType;
-import org.jberger.pergen.node.AMoreIdentifier;
-import org.jberger.pergen.node.ARealDataType;
-import org.jberger.pergen.node.AStringDataType;
-import org.jberger.pergen.node.AStringLength;
-import org.jberger.pergen.node.AUnicityDefinition;
-import org.jberger.pergen.analysis.DepthFirstAdapter;
+import org.jberger.pergen.generated.node.ADateDataType;
+import org.jberger.pergen.generated.node.AEntityDefinition;
+import org.jberger.pergen.generated.node.AFieldDefinition;
+import org.jberger.pergen.generated.node.AIntegerDataType;
+import org.jberger.pergen.generated.node.AMoreIdentifier;
+import org.jberger.pergen.generated.node.ARealDataType;
+import org.jberger.pergen.generated.node.AStringDataType;
+import org.jberger.pergen.generated.node.AStringLength;
+import org.jberger.pergen.generated.node.AUnicityDefinition;
+import org.jberger.pergen.generated.analysis.DepthFirstAdapter;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;

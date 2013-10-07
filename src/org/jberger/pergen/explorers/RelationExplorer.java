@@ -17,16 +17,16 @@ package org.jberger.pergen.explorers;
 
 import java.util.ArrayList;
 
-import org.jberger.pergen.node.AEntityDefinition;
-import org.jberger.pergen.node.AManyRelationDefinition;
-import org.jberger.pergen.node.AMayBeZero;
-import org.jberger.pergen.node.AOneRelationDefinition;
-import org.jberger.pergen.node.ARelationInnerDefinition;
+import org.jberger.pergen.generated.node.AEntityDefinition;
+import org.jberger.pergen.generated.node.AManyRelationDefinition;
+import org.jberger.pergen.generated.node.AMayBeZero;
+import org.jberger.pergen.generated.node.AOneRelationDefinition;
+import org.jberger.pergen.generated.node.ARelationInnerDefinition;
 
 import org.jberger.pergen.domain.RawRelation;
 import org.jberger.pergen.domain.RelationType;
 
-import org.jberger.pergen.analysis.DepthFirstAdapter;
+import org.jberger.pergen.generated.analysis.DepthFirstAdapter;
 
 /**
  * Collects the raw information about the relations between the entities.
