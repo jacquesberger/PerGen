@@ -7,6 +7,6 @@ Technologies in the project:
 * Java 7
 * JUnit 4.10
 * MySQL 5
-* NetBeans 7.3
+* NetBeans 7.4
 * SableCC 3.2
 * SQL

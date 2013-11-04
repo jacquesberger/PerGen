@@ -15,6 +15,7 @@
 
 package org.jberger.pergen.main;
 
+import java.io.IOException;
 import org.jberger.pergen.domain.DataLayerSpecifications;
 import org.jberger.pergen.files.FileLoader;
 import org.jberger.pergen.files.FilePath;
@@ -44,7 +45,7 @@ public final class PerGen {
     }
 
 
-    private static void generateCode(String directory, DataLayerSpecifications global) {
+    private static void generateCode(String directory, DataLayerSpecifications global) throws IOException {
 	SQLGenerator.generate(global, directory + "\\script.sql");
         JavaGenerator java = new JavaGenerator(directory);
 	java.generate(global);
