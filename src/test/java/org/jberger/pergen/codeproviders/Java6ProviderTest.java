@@ -115,4 +115,56 @@ public class Java6ProviderTest {
         Java6Provider.provideDAOSaveMethod(fileWriter, entity);
         assertEquals(expected, fileWriter.getWrittenData());
     }
+
+    @Test
+    public void testCaracterization2() throws IOException {
+        String expected
+                = "    public void save(final Dog dog) throws DAOException, NullityException {\n"
+                + "        checkNullity(dog);\n"
+                + "\n"
+                + "        if (dog.getId() == null) {\n"
+                + "            dog.setId(getNewId());\n"
+                + "\n"
+                + "            try {\n"
+                + "                PreparedStatement query = connection.prepareStatement(\n"
+                + "                    \"insert into DOG(DOG_ID, DEATH, NAME, AGE, LEGS) values(?, ?, ?, ?, ?)\");\n"
+                + "                query.setInt(1, dog.getId().intValue());\n"
+                + "                query.setDate(2, new java.sql.Date(dog.getDeath().getTime()));\n"
+                + "                query.setString(3, dog.getName());\n"
+                + "                query.setDouble(4, dog.getAge());\n"
+                + "                query.setInt(5, dog.getLegs());\n"
+                + "\n"
+                + "                query.executeUpdate();\n"
+                + "            } catch (SQLException e) {\n"
+                + "                throw new DAOException(\"Unable to perform insert on database.\", e);\n"
+                + "            }\n"
+                + "        } else {\n"
+                + "            try {\n"
+                + "                PreparedStatement query = connection.prepareStatement(\n"
+                + "                                \"update DOG set DEATH=?, NAME=?, AGE=?, LEGS=? where DOG_ID=?\");\n"
+                + "                query.setDate(1, new java.sql.Date(dog.getDeath().getTime()));\n"
+                + "                query.setString(2, dog.getName());\n"
+                + "                query.setDouble(3, dog.getAge());\n"
+                + "                query.setInt(4, dog.getLegs());\n"
+                + "                query.setInt(5, dog.getId().intValue());\n"
+                + "\n"
+                + "                query.executeUpdate();\n"
+                + "\n"
+                + "            } catch (SQLException e) {\n"
+                + "                throw new DAOException(\"Unable to perform update on database.\", e);\n"
+                + "            }\n"
+                + "        }\n"
+                + "\n"
+                + "    }\n\n";
+
+        MockFileWriter fileWriter = new MockFileWriter();
+        Entity entity = new Entity("Dog");
+        entity.addField(new Field("legs", FieldType.Type.INTEGER, true));
+        entity.addField(new Field("age", FieldType.Type.REAL, true));
+        entity.addField(new Field("death", FieldType.Type.DATE, false));
+        entity.addField(new Field("name", FieldType.Type.STRING, true));
+        Java6Provider.provideDAOSaveMethod(fileWriter, entity);
+        assertEquals(expected, fileWriter.getWrittenData());
+    }
+
 }
