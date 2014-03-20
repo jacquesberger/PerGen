@@ -1,18 +1,17 @@
 /* Copyright 2007 Jacques Berger
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
-
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package org.jberger.pergen.domain;
 
 import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
@@ -33,7 +32,7 @@ public class EntityTest {
         Entity entity = new Entity("Rain");
         String fieldName = "field";
         Field field = new Field(fieldName,
-                                     FieldType.Type.INTEGER, true);
+                FieldType.Type.INTEGER, true);
         entity.addField(field);
         assertTrue(entity.isFieldDefined(fieldName));
     }
@@ -43,31 +42,31 @@ public class EntityTest {
         Entity entity = new Entity("Rain");
         String fieldName = "field";
         Field field = new Field(fieldName,
-                                     FieldType.Type.INTEGER, true);
+                FieldType.Type.INTEGER, true);
 
         entity.addField(field);
         assertSame(field, entity.getField(fieldName));
     }
-    
+
     @Test
     public final void testGetUndefinedField() {
         Entity entity = new Entity("Rain");
         assertNull(entity.getField("broken"));
     }
-    
+
     @Test
     public final void testSqlName() {
         Entity entity = new Entity("entity_name");
         assertEquals("ENTITY_NAME", entity.getSqlName());
     }
-    
+
     @Test
     public final void testJavaName() {
         Entity entity = new Entity("entity_name");
         assertEquals("EntityName", entity.getJavaName());
     }
-    
-    @Test(expected=AmbiguousFieldNameException.class)
+
+    @Test(expected = AmbiguousFieldNameException.class)
     public final void testJavaNameAmbiguity() {
         Entity entity = new Entity("entity_name");
         Field field1 = new Field("field_name", FieldType.Type.STRING, false);
