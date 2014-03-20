@@ -16,10 +16,12 @@
 package org.jberger.pergen.codeproviders;
 
 import java.io.IOException;
+import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.tests.mock.MockFileWriter;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class Java6ProviderTest {
@@ -72,5 +74,45 @@ public class Java6ProviderTest {
                 + "        return entityCodeNameList;\n"
                 + "    }\n"
                 + "\n", fileWriter.getWrittenData());
+    }
+
+    @Test
+    public void testCaracterization1() throws IOException {
+        String expected
+                = "    public void save(final Dog dog) throws DAOException, NullityException {\n"
+                + "        checkNullity(dog);\n"
+                + "\n"
+                + "        if (dog.getId() == null) {\n"
+                + "            dog.setId(getNewId());\n"
+                + "\n"
+                + "            try {\n"
+                + "                PreparedStatement query = connection.prepareStatement(\n"
+                + "                    \"insert into DOG(DOG_ID) values(?)\");\n"
+                + "                query.setInt(1, dog.getId().intValue());\n"
+                + "\n"
+                + "                query.executeUpdate();\n"
+                + "            } catch (SQLException e) {\n"
+                + "                throw new DAOException(\"Unable to perform insert on database.\", e);\n"
+                + "            }\n"
+                + "        } else {\n"
+                + "            try {\n"
+                + "                PreparedStatement query = connection.prepareStatement(\n"
+                + "                                \"update DOG set  where DOG_ID=?\");\n"
+                + "                query.setInt(1, dog.getId().intValue());\n"
+                + "\n"
+                + "                query.executeUpdate();\n"
+                + "\n"
+                + "            } catch (SQLException e) {\n"
+                + "                throw new DAOException(\"Unable to perform update on database.\", e);\n"
+                + "            }\n"
+                + "        }\n"
+                + "\n"
+                + "    }\n"
+                + "\n";
+
+        MockFileWriter fileWriter = new MockFileWriter();
+        Entity entity = new Entity("Dog");
+        Java6Provider.provideDAOSaveMethod(fileWriter, entity);
+        assertEquals(expected, fileWriter.getWrittenData());
     }
 }
