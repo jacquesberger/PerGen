@@ -19,9 +19,10 @@ import java.io.IOException;
 import org.jberger.pergen.domain.Entity;
 import org.jberger.pergen.domain.Field;
 import org.jberger.pergen.domain.FieldType;
+import org.jberger.pergen.domain.Relation;
+import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.tests.mock.MockFileWriter;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class Java6ProviderTest {
@@ -150,21 +151,43 @@ public class Java6ProviderTest {
                 + "\n"
                 + "                query.executeUpdate();\n"
                 + "\n"
+                + "                PreparedStatement deleteMaster = connection.prepareStatement(\"delete from DOG_MASTER where DOG_ID=?\");\n"
+                + "                deleteMaster.setInt(1, dog.getId());\n"
+                + "                deleteMaster.executeUpdate();\n"
+                + "\n"
                 + "            } catch (SQLException e) {\n"
                 + "                throw new DAOException(\"Unable to perform update on database.\", e);\n"
                 + "            }\n"
                 + "        }\n"
                 + "\n"
+                + "        try {\n"
+                + "            for (Integer id : dog.getMasterList()) {\n"
+                + "                PreparedStatement link = connection.prepareStatement(\n"
+                + "                        \"insert into DOG_MASTER(MASTER_ID, DOG_ID) values(?, ?)\");\n"
+                + "                link.setInt(1, id);\n"
+                + "                link.setInt(2, dog.getId());\n"
+                + "                link.executeUpdate();\n"
+                + "            }\n"
+                + "\n"
+                + "        } catch (SQLException e) {\n"
+                + "            throw new DAOException(\"Unable to perform insert on database.\", e);\n"
+                + "        }\n"
                 + "    }\n\n";
 
         MockFileWriter fileWriter = new MockFileWriter();
         Entity entity = new Entity("Dog");
+        Entity bone = new Entity("Bone");
+        Entity master = new Entity("Master");
         entity.addField(new Field("legs", FieldType.Type.INTEGER, true));
         entity.addField(new Field("age", FieldType.Type.REAL, true));
         entity.addField(new Field("death", FieldType.Type.DATE, false));
         entity.addField(new Field("name", FieldType.Type.STRING, true));
+        Relation rel1 = new Relation(bone, RelationType.Type.MANY, true, false, "BONE_DOG");
+        Relation rel2 = new Relation(master, RelationType.Type.MANY, true, true, "DOG_MASTER");
+        entity.addRelation(rel1);
+        entity.addRelation(rel2);
         Java6Provider.provideDAOSaveMethod(fileWriter, entity);
+        System.out.println(fileWriter.getWrittenData());
         assertEquals(expected, fileWriter.getWrittenData());
     }
-
 }
