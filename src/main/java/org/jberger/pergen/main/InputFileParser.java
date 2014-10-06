@@ -44,7 +44,8 @@ public class InputFileParser {
 	RelationExplorer relationExplorer = new RelationExplorer();
 	ast.apply(relationExplorer);
 
-	RelationAnalyzer.analyse(specs, relationExplorer.getRelations());
+        RelationAnalyzer analyzer = new RelationAnalyzer(relationExplorer.getRelations());
+	analyzer.analyse(specs);
 	return specs;
     }
 
