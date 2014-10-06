@@ -20,9 +20,6 @@ package org.jberger.pergen.domain;
  */
 public class RawRelation {
 
-    /**
-     * The from entity. The entity in which the relation is defined.
-     */
     private String fromEntity;
 
     /**
