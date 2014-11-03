@@ -27,7 +27,7 @@ public class MessageWriter {
     public void displayUsage() {
         out.println("Wrong parameters...");
         out.println("Use : java PerGen <file>");
-        out.println("<file> = absolute or relative file path, " + "no spaces allowed");
+        out.println("<file> = absolute or relative file path, no spaces allowed");
     }
     
     public void displayErrorMessage(Exception e) {
