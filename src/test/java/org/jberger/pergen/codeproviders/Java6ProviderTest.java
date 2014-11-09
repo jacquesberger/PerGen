@@ -187,7 +187,6 @@ public class Java6ProviderTest {
         entity.addRelation(rel1);
         entity.addRelation(rel2);
         Java6Provider.provideDAOSaveMethod(fileWriter, entity);
-        System.out.println(fileWriter.getWrittenData());
         assertEquals(expected, fileWriter.getWrittenData());
     }
 }
