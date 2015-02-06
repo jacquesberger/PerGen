@@ -34,14 +34,18 @@ public final class PerGen {
 	}
 
 	try {
-            String inputFileContent = FileLoader.loadFileIntoString(args[0]);
-            String workingDirectory = FilePath.extractDirectory(args[0]);
-            InputFileParser parser = new InputFileParser(inputFileContent);
-	    DataLayerSpecifications specs = parser.extractSpecifications();
-            generateCode(workingDirectory, specs);
+            generateSourceCodeFromInputFileSpecs(args[0]);
 	} catch (Exception e) {
             writer.displayErrorMessage(e);
 	}
+    }
+
+    private static void generateSourceCodeFromInputFileSpecs(final String inputFilePath) throws Exception, IOException {
+        String inputFileContent = FileLoader.loadFileIntoString(inputFilePath);
+        String workingDirectory = FilePath.extractDirectory(inputFilePath);
+        InputFileParser parser = new InputFileParser(inputFileContent);
+        DataLayerSpecifications specs = parser.extractSpecifications();
+        generateCode(workingDirectory, specs);
     }
 
 

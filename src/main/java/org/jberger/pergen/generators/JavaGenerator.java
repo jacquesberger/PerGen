@@ -42,27 +42,24 @@ public final class JavaGenerator {
         generatePOJOs(global);
     }
 
-    /**
-     * Generates the DAOException.java file.
-     */
-    private void generateDAOException(String workingDirectory) {
+    private void generateDaoExceptionFile(String workingDirectory) throws IOException {
         String fileName = workingDirectory + "\\DAOException.java";
-        try {
-            FileWriter fileWriter = new FileWriter(fileName);
-            FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
-            Java6Provider.provideHeaderComment(writer);
-            Java6Provider.providePackageDeclaration(writer, "daos");
-            Java6Provider.provideDAOExceptionClass(writer);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileWriter fileWriter = new FileWriter(fileName);
+        FileWriterWrapper writer = new FileWriterWrapper(fileWriter);
+        generateDaoExceptionSourceCode(writer);
+        fileWriter.close();
+    }
+
+    private void generateDaoExceptionSourceCode(FileWriterWrapper writer) throws IOException {
+        Java6Provider.provideHeaderComment(writer);
+        Java6Provider.providePackageDeclaration(writer, "daos");
+        Java6Provider.provideDAOExceptionClass(writer);
     }
 
     private void generateDAOs(DataLayerSpecifications specs) throws IOException {
         String realDirectory = directory + "\\daos";
         new File(realDirectory).mkdir();
-        generateDAOException(realDirectory);
+        generateDaoExceptionFile(realDirectory);
         generateNullityException(realDirectory);
 
         for (Entity entity : specs.getEntities()) {
