@@ -12,6 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -23,29 +25,27 @@
         </dependency>
     </dependencies>
     
-    <reporting>
+    <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.0.201403182114</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
- 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <formats>
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                </configuration>
-            </plugin>
- 
         </plugins>
-    </reporting>
+    </build>
 </project>
