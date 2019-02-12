@@ -14,9 +14,7 @@
  */
 package org.jberger.pergen.domain;
 
-import org.jberger.pergen.exceptions.AmbiguousFieldNameException;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class EntityTest {
 
@@ -24,7 +22,7 @@ public class EntityTest {
     public final void testGetOriginalName() {
         String entityName = "Rain";
         Entity entity = new Entity(entityName);
-        assertEquals(entityName, entity.getOriginalName());
+        Assertions.assertEquals(entityName, entity.getOriginalName());
     }
 
     @Test
@@ -34,7 +32,7 @@ public class EntityTest {
         Field field = new Field(fieldName,
                 FieldType.Type.INTEGER, true);
         entity.addField(field);
-        assertTrue(entity.isFieldDefined(fieldName));
+        Assertions.assertTrue(entity.isFieldDefined(fieldName));
     }
 
     @Test
@@ -45,33 +43,24 @@ public class EntityTest {
                 FieldType.Type.INTEGER, true);
 
         entity.addField(field);
-        assertSame(field, entity.getField(fieldName));
+        Assertions.assertSame(field, entity.getField(fieldName));
     }
 
     @Test
     public final void testGetUndefinedField() {
         Entity entity = new Entity("Rain");
-        assertNull(entity.getField("broken"));
+        Assertions.assertNull(entity.getField("broken"));
     }
 
     @Test
     public final void testSqlName() {
         Entity entity = new Entity("entity_name");
-        assertEquals("ENTITY_NAME", entity.getSqlName());
+        Assertions.assertEquals("ENTITY_NAME", entity.getSqlName());
     }
 
     @Test
     public final void testJavaName() {
         Entity entity = new Entity("entity_name");
-        assertEquals("EntityName", entity.getJavaName());
-    }
-
-    @Test(expected = AmbiguousFieldNameException.class)
-    public final void testJavaNameAmbiguity() {
-        Entity entity = new Entity("entity_name");
-        Field field1 = new Field("field_name", FieldType.Type.STRING, false);
-        Field field2 = new Field("field__name", FieldType.Type.STRING, false);
-        entity.addField(field1);
-        entity.addField(field2);
+        Assertions.assertEquals("EntityName", entity.getJavaName());
     }
 }

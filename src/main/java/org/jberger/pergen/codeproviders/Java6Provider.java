@@ -733,7 +733,7 @@ public final class Java6Provider {
         writer.write("        }\n\n");
 
         ArrayList<Relation> manyToManyList = entity.getAllManyToManyRelations();
-        if (manyToManyList.size() > 0) {
+        if (!manyToManyList.isEmpty()) {
             writer.write("        try {\n");
 
             for (Relation relation : manyToManyList) {

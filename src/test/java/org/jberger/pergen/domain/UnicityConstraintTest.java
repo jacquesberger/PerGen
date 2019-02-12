@@ -16,23 +16,24 @@
 package org.jberger.pergen.domain;
 
 import java.util.Collection;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class UnicityConstraintTest {
 
     @Test
     public void testUnicityConstraint() {
-	UnicityConstraint constraint = new UnicityConstraint();
-	Collection<Field> fieldList = constraint.getFields();
-	assert(fieldList.isEmpty());
+        UnicityConstraint constraint = new UnicityConstraint();
+        Collection<Field> fieldList = constraint.getFields();
+        Assertions.assertTrue(fieldList.isEmpty());
     }
 
     @Test
     public void testAddField() {
-	UnicityConstraint constraint = new UnicityConstraint();
-	Field fieldInfo = new Field("age", FieldType.Type.INTEGER, true);
-	constraint.addField(fieldInfo);
-	Collection<Field> fieldList = constraint.getFields();
-	assert(fieldList.size() == 1);
+        UnicityConstraint constraint = new UnicityConstraint();
+        Field fieldInfo = new Field("age", FieldType.Type.INTEGER, true);
+        constraint.addField(fieldInfo);
+        Collection<Field> fieldList = constraint.getFields();
+        Assertions.assertTrue(fieldList.size() == 1);
     }
 }

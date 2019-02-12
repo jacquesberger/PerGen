@@ -23,5 +23,5 @@ public class RelationType {
     /**
      * The different relation types.
      */
-    public enum Type { ONE, MANY };
+    public enum Type { ONE, MANY }
 }

@@ -14,8 +14,7 @@
  */
 package org.jberger.pergen.domain;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class FieldTest {
 
@@ -24,7 +23,7 @@ public class FieldTest {
         Field field = new Field("Test",
                 FieldType.Type.DATE,
                 true);
-        assertTrue(field.isRequired());
+        Assertions.assertTrue(field.isRequired());
     }
 
     @Test
@@ -33,7 +32,7 @@ public class FieldTest {
         Field field = new Field(fieldName,
                 FieldType.Type.DATE,
                 true);
-        assertEquals(fieldName, field.getOriginalName());
+        Assertions.assertEquals(fieldName, field.getOriginalName());
     }
 
     @Test
@@ -42,7 +41,7 @@ public class FieldTest {
         Field field = new Field("Test",
                 type,
                 true);
-        assertEquals(type, field.getOriginalDataType());
+        Assertions.assertEquals(type, field.getOriginalDataType());
     }
 
     @Test
@@ -50,7 +49,7 @@ public class FieldTest {
         Field field = new Field("first_name", 
                                                         FieldType.Type.STRING, 
                                                         false);
-        assertEquals("firstName", field.getJavaName());
+        Assertions.assertEquals("firstName", field.getJavaName());
     }
     
     @Test
@@ -58,7 +57,7 @@ public class FieldTest {
         Field field = new Field("first_name", 
                                                         FieldType.Type.STRING, 
                                                         false);
-        assertEquals("FIRST_NAME", field.getSqlName());
+        Assertions.assertEquals("FIRST_NAME", field.getSqlName());
     }
     
     @Test
@@ -66,7 +65,7 @@ public class FieldTest {
         Field field = new Field("first_name", 
                                                         FieldType.Type.STRING, 
                                                         false);
-        assertEquals("getFirstName", field.getGetterName());
+        Assertions.assertEquals("getFirstName", field.getGetterName());
     }
     
     @Test
@@ -74,6 +73,6 @@ public class FieldTest {
         Field field = new Field("first_name", 
                                                         FieldType.Type.STRING, 
                                                         false);
-        assertEquals("setFirstName", field.getSetterName());
+        Assertions.assertEquals("setFirstName", field.getSetterName());
     }
 }

@@ -22,8 +22,7 @@ import org.jberger.pergen.domain.FieldType;
 import org.jberger.pergen.domain.Relation;
 import org.jberger.pergen.domain.RelationType;
 import org.jberger.pergen.tests.mock.MockFileWriter;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class Java6ProviderTest {
 
@@ -31,21 +30,21 @@ public class Java6ProviderTest {
     public void testProvideDefaultConstructor() throws Exception {
         MockFileWriter fileWriter = new MockFileWriter();
         Java6Provider.provideDefaultConstructor(fileWriter, "Book");
-        assertEquals("    public Book() {\n    }\n\n", fileWriter.getWrittenData());
+        Assertions.assertEquals("    public Book() {\n    }\n\n", fileWriter.getWrittenData());
     }
 
     @Test
     public void testProvidePackageDeclaration() throws IOException {
         MockFileWriter fileWriter = new MockFileWriter();
         Java6Provider.providePackageDeclaration(fileWriter, "pergen");
-        assertEquals("package pergen;\n\n", fileWriter.getWrittenData());
+        Assertions.assertEquals("package pergen;\n\n", fileWriter.getWrittenData());
     }
 
     @Test
     public void testProvidePojosFieldGetterSetter() throws IOException {
         MockFileWriter fileWriter = new MockFileWriter();
         Java6Provider.providePOJOsFieldAndGetterSetter(fileWriter, new Field("test", FieldType.Type.STRING, true));
-        assertEquals("    private String test = null;\n"
+        Assertions.assertEquals("    private String test = null;\n"
                 + "\n"
                 + "    public String getTest() {\n"
                 + "        return test;\n"
@@ -61,7 +60,7 @@ public class Java6ProviderTest {
     public void testProvidePOJOsEverythingForAManyRelation() throws IOException {
         MockFileWriter fileWriter = new MockFileWriter();
         Java6Provider.providePOJOsEverythingForAManyRelation(fileWriter, "EntityCodeName");
-        assertEquals("    private ArrayList<Integer> entityCodeNameList = new ArrayList<Integer>();\n"
+        Assertions.assertEquals("    private ArrayList<Integer> entityCodeNameList = new ArrayList<Integer>();\n"
                 + "\n"
                 + "    public void addEntityCodeName(Integer entityCodeNameId) {\n"
                 + "        entityCodeNameList.add(entityCodeNameId);\n"
@@ -114,7 +113,7 @@ public class Java6ProviderTest {
         MockFileWriter fileWriter = new MockFileWriter();
         Entity entity = new Entity("Dog");
         Java6Provider.provideDAOSaveMethod(fileWriter, entity);
-        assertEquals(expected, fileWriter.getWrittenData());
+        Assertions.assertEquals(expected, fileWriter.getWrittenData());
     }
 
     @Test
@@ -187,6 +186,6 @@ public class Java6ProviderTest {
         entity.addRelation(rel1);
         entity.addRelation(rel2);
         Java6Provider.provideDAOSaveMethod(fileWriter, entity);
-        assertEquals(expected, fileWriter.getWrittenData());
+        Assertions.assertEquals(expected, fileWriter.getWrittenData());
     }
 }

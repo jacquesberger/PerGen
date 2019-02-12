@@ -15,38 +15,37 @@
  */
 package org.jberger.pergen.files;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
 
 public class FilePathTest {
 
     @Test
     public void testExtractDirectoryEmptyString() {
-        assertEquals("", FilePath.extractDirectory(""));
+        Assertions.assertEquals("", FilePath.extractDirectory(""));
     }
 
     @Test
     public void testExtractDirectoryNormalCase() {
-        assertEquals("", FilePath.extractDirectory("timesheet.json"));
+        Assertions.assertEquals("", FilePath.extractDirectory("timesheet.json"));
     }
 
     @Test
     public void testExtractDirectoryWithDir() {
-        assertEquals("test", FilePath.extractDirectory("test/timesheet.json"));
+        Assertions.assertEquals("test", FilePath.extractDirectory("test/timesheet.json"));
     }
 
     @Test
     public void testExtractDirectoryWithCompleteDir() {
-        assertEquals("/user/test", FilePath.extractDirectory("/user/test/timesheet.json"));
+        Assertions.assertEquals("/user/test", FilePath.extractDirectory("/user/test/timesheet.json"));
     }
 
     @Test
     public void testExtractDirectoryWithDirWindows() {
-        assertEquals("test", FilePath.extractDirectory("test\\timesheet.json"));
+        Assertions.assertEquals("test", FilePath.extractDirectory("test\\timesheet.json"));
     }
 
     @Test
     public void testExtractDirectoryWithCompleteDirWindows() {
-        assertEquals("C:\\user\\test", FilePath.extractDirectory("C:\\user\\test\\timesheet.json"));
+        Assertions.assertEquals("C:\\user\\test", FilePath.extractDirectory("C:\\user\\test\\timesheet.json"));
     }
 }

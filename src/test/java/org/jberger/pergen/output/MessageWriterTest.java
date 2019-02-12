@@ -16,8 +16,7 @@
 package org.jberger.pergen.output;
 
 import org.jberger.pergen.tests.mock.MockPrintStream;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class MessageWriterTest {
     
@@ -26,7 +25,7 @@ public class MessageWriterTest {
         MockPrintStream mock = new MockPrintStream();
         MessageWriter writer = new MessageWriter(mock);
         writer.displayUsage();
-        assertEquals("Wrong parameters...\nUse : java PerGen <file>\n<file> = absolute or relative file path, no spaces allowed\n", mock.getWrittenData());
+        Assertions.assertEquals("Wrong parameters...\nUse : java PerGen <file>\n<file> = absolute or relative file path, no spaces allowed\n", mock.getWrittenData());
     }
 
     @Test
@@ -35,6 +34,6 @@ public class MessageWriterTest {
         MessageWriter writer = new MessageWriter(mock);
         Exception e = new Exception("Message d'erreur");
         writer.displayErrorMessage(e);
-        assertEquals("Error: Message d'erreur\n", mock.getWrittenData());
+        Assertions.assertEquals("Error: Message d'erreur\n", mock.getWrittenData());
     }
 }

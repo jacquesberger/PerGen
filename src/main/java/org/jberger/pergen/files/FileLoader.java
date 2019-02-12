@@ -17,11 +17,10 @@ package org.jberger.pergen.files;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class FileLoader {
-    public static String loadFileIntoString(String filePath) throws FileNotFoundException, IOException {
+    public static String loadFileIntoString(String filePath) throws IOException {
         byte[] fullSizeBuffer = new byte[(int) new File(filePath).length()];
         FileInputStream inputStream = new FileInputStream(filePath);
         inputStream.read(fullSizeBuffer);

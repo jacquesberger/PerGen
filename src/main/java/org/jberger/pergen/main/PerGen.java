@@ -40,7 +40,7 @@ public final class PerGen {
 	}
     }
 
-    private static void generateSourceCodeFromInputFileSpecs(final String inputFilePath) throws Exception, IOException {
+    private static void generateSourceCodeFromInputFileSpecs(final String inputFilePath) throws Exception {
         String inputFileContent = FileLoader.loadFileIntoString(inputFilePath);
         String workingDirectory = FilePath.extractDirectory(inputFilePath);
         InputFileParser parser = new InputFileParser(inputFileContent);

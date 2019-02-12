@@ -40,7 +40,7 @@ public final class MySql5Provider {
 
     /**
      * Generates a CREATE TABLE statement for an entity.
-     * 
+     *
      * @param entity
      *            The entity.
      * @param writer
@@ -49,64 +49,64 @@ public final class MySql5Provider {
      *             From the file writer.
      */
     public static void provideStandardCreateTable(final Entity entity,
-	    final FileWriterWrapper writer) throws IOException {
-	writer.write("CREATE TABLE " + entity.getSqlName() + " (\n");
-	writer.write("  " + entity.getSqlName() + "_ID INTEGER NOT NULL,\n");
+                                                  final FileWriterWrapper writer) throws IOException {
+        writer.write("CREATE TABLE " + entity.getSqlName() + " (\n");
+        writer.write("  " + entity.getSqlName() + "_ID INTEGER NOT NULL,\n");
 
-	for (Field field : entity.getFields()) {
-	    writer.write("  " + field.getSqlName() + " " + originalTypeToDatabaseType(field.getOriginalDataType()));
+        for (Field field : entity.getFields()) {
+            writer.write("  " + field.getSqlName() + " " + originalTypeToDatabaseType(field.getOriginalDataType()));
 
-	    Integer length = field.getStringLength();
-	    if (length != null) {
-		writer.write("(" + length.toString() + ")");
-	    } else if (field.getOriginalDataType() == FieldType.Type.STRING) {
-		writer.write("(255)");
-	    }
+            Integer length = field.getStringLength();
+            if (length != null) {
+                writer.write("(" + length.toString() + ")");
+            } else if (field.getOriginalDataType() == FieldType.Type.STRING) {
+                writer.write("(255)");
+            }
 
-	    writer.write(",\n");
-	}
+            writer.write(",\n");
+        }
 
-	for (Relation relation : entity.getRelations()) {
-	    if (relation.getType() == RelationType.Type.ONE) {
-		writer.write("  " + relation.getEntity().getSqlName() + "_ID INTEGER NOT NULL,\n");
-	    }
-	}
+        for (Relation relation : entity.getRelations()) {
+            if (relation.getType() == RelationType.Type.ONE) {
+                writer.write("  " + relation.getEntity().getSqlName() + "_ID INTEGER NOT NULL,\n");
+            }
+        }
 
-	writer.write("  CONSTRAINT PK_" + entity.getSqlName() + " PRIMARY " + "KEY ("
-	        + entity.getSqlName() + "_ID)\n");
-	writer.write(");\n\n");
+        writer.write("  CONSTRAINT PK_" + entity.getSqlName() + " PRIMARY " + "KEY ("
+                + entity.getSqlName() + "_ID)\n");
+        writer.write(");\n\n");
     }
 
     public static String buildCreateStatementForJunctionTable(final String firstEntitySqlName,
-	    final String secondEntitySqlName) {
-	String tableName = SQLGenerator.buildJunctionTableName(firstEntitySqlName,
-	        secondEntitySqlName);
-	return "CREATE TABLE " + tableName + " (\n" + "  " + tableName + "_ID INTEGER NOT NULL "
-	        + "auto_increment,\n" + "  " + firstEntitySqlName + "_ID INTEGER NOT NULL,\n"
-	        + "  " + secondEntitySqlName + "_ID INTEGER NOT NULL,\n" + "  CONSTRAINT PK_"
-	        + tableName + " PRIMARY KEY (" + tableName + "_ID)\n" + ");\n\n";
+                                                              final String secondEntitySqlName) {
+        String tableName = SQLGenerator.buildJunctionTableName(firstEntitySqlName,
+                secondEntitySqlName);
+        return "CREATE TABLE " + tableName + " (\n" + "  " + tableName + "_ID INTEGER NOT NULL "
+                + "auto_increment,\n" + "  " + firstEntitySqlName + "_ID INTEGER NOT NULL,\n"
+                + "  " + secondEntitySqlName + "_ID INTEGER NOT NULL,\n" + "  CONSTRAINT PK_"
+                + tableName + " PRIMARY KEY (" + tableName + "_ID)\n" + ");\n\n";
     }
 
     public static String buildForeignKeyStatement(String modifiedTableName,
-	    String referencedTableName) {
-	return "ALTER TABLE " + modifiedTableName + " ADD (" + "CONSTRAINT FK_" + modifiedTableName
-	        + "_" + referencedTableName + " FOREIGN KEY (" + referencedTableName
-	        + "_ID) REFERENCES " + referencedTableName + "(" + referencedTableName
-	        + "_ID));\n\n";
+                                                  String referencedTableName) {
+        return "ALTER TABLE " + modifiedTableName + " ADD (" + "CONSTRAINT FK_" + modifiedTableName
+                + "_" + referencedTableName + " FOREIGN KEY (" + referencedTableName
+                + "_ID) REFERENCES " + referencedTableName + "(" + referencedTableName
+                + "_ID));\n\n";
     }
 
     public static String buildForeignKeyStatementsForJunctionTable(String firstReferencedTableName,
-	    String secondReferencedTableName) {
-	String junctionTableName = SQLGenerator.buildJunctionTableName(firstReferencedTableName,
-	        secondReferencedTableName);
+                                                                   String secondReferencedTableName) {
+        String junctionTableName = SQLGenerator.buildJunctionTableName(firstReferencedTableName,
+                secondReferencedTableName);
 
-	return buildForeignKeyStatement(junctionTableName, firstReferencedTableName) +
-	       buildForeignKeyStatement(junctionTableName, secondReferencedTableName);
+        return buildForeignKeyStatement(junctionTableName, firstReferencedTableName) +
+                buildForeignKeyStatement(junctionTableName, secondReferencedTableName);
     }
 
     /**
      * Generates the create unique index statement for a unicity constraint.
-     * 
+     *
      * @param unicity
      *            The unicity constraint.
      * @param entityName
@@ -122,36 +122,36 @@ public final class MySql5Provider {
      *             From the file writer.
      */
     public static void provideUnicityConstraint(final UnicityConstraint unicity,
-	    final String entityName, final int unicityCount, final FileWriterWrapper writer)
-	    throws IOException {
-	writer.write("CREATE UNIQUE INDEX INDEX_" + entityName + unicityCount + " ON " + entityName
-	        + "(");
+                                                final String entityName, final int unicityCount, final FileWriterWrapper writer)
+            throws IOException {
+        writer.write("CREATE UNIQUE INDEX INDEX_" + entityName + unicityCount + " ON " + entityName
+                + "(");
 
-	Collection<Field> fields = unicity.getFields();
-	Iterator<Field> iterator = fields.iterator();
-	while (iterator.hasNext()) {
-	    Field field = iterator.next();
-	    writer.write(field.getSqlName());
-	    if (iterator.hasNext()) {
-		writer.write(", ");
-	    }
-	}
+        Collection<Field> fields = unicity.getFields();
+        Iterator<Field> iterator = fields.iterator();
+        while (iterator.hasNext()) {
+            Field field = iterator.next();
+            writer.write(field.getSqlName());
+            if (iterator.hasNext()) {
+                writer.write(", ");
+            }
+        }
 
-	writer.write(");\n\n");
+        writer.write(");\n\n");
     }
 
     private static String originalTypeToDatabaseType(final FieldType.Type type) {
-	switch (type) {
-	case DATE:
-	    return ("DATE");
-	case INTEGER:
-	    return ("INTEGER");
-	case REAL:
-	    return ("DOUBLE");
-	case STRING:
-	    return ("VARCHAR");
-	default:
-	    return (null);
-	}
+        switch (type) {
+            case DATE:
+                return ("DATE");
+            case INTEGER:
+                return ("INTEGER");
+            case REAL:
+                return ("DOUBLE");
+            case STRING:
+                return ("VARCHAR");
+            default:
+                return (null);
+        }
     }
 }

@@ -92,7 +92,7 @@ public class RelationAnalyzer {
     private void buildRelations(final DataLayerSpecifications infos) {
         ArrayList<RawRelation> copy
                 = (ArrayList<RawRelation>) relations.clone();
-        while (copy.size() > 0) {
+        while (!copy.isEmpty()) {
             RawRelation first = copy.get(0);
             copy.remove(first);
             RawRelation second = null;

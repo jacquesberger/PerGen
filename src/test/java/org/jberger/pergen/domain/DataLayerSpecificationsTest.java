@@ -15,9 +15,7 @@
 
 package org.jberger.pergen.domain;
 
-import org.jberger.pergen.exceptions.AmbiguousEntityNameException;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class DataLayerSpecificationsTest {
 
@@ -29,7 +27,7 @@ public class DataLayerSpecificationsTest {
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
-        assertTrue(global.isEntityDefined(entityName));
+        Assertions.assertTrue(global.isEntityDefined(entityName));
     }
 
     @Test
@@ -40,7 +38,7 @@ public class DataLayerSpecificationsTest {
         Entity entity = new Entity(entityName);
         global.addEntity(entity);
 
-        assertSame(entity, global.getEntity(entityName));
+        Assertions.assertSame(entity, global.getEntity(entityName));
     }
 
     @Test
@@ -49,13 +47,6 @@ public class DataLayerSpecificationsTest {
         global.addEntity(new Entity("first"));
         global.addEntity(new Entity("second"));
         global.addEntity(new Entity("third"));
-        assertEquals(3, global.getEntities().size());
-    }
-    
-    @Test(expected=AmbiguousEntityNameException.class)
-    public final void testDuplicateEntityName() {
-        DataLayerSpecifications global = new DataLayerSpecifications();
-        global.addEntity(new Entity("entity_name"));
-        global.addEntity(new Entity("entity__name"));
+        Assertions.assertEquals(3, global.getEntities().size());
     }
 }

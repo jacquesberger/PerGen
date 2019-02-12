@@ -15,18 +15,17 @@
 
 package org.jberger.pergen.generators;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class SqlGeneratorTest {
 
     @Test
     public void testBuildJunctionTableNameNaturalOrder() {
-	assertEquals(SQLGenerator.buildJunctionTableName("AUTHOR", "BOOK"), "AUTHOR_BOOK");
+        Assertions.assertEquals(SQLGenerator.buildJunctionTableName("AUTHOR", "BOOK"), "AUTHOR_BOOK");
     }
 
     @Test
     public void testBuildJunctionTableNameReverseOrder() {
-	assertEquals(SQLGenerator.buildJunctionTableName("BOOK", "AUTHOR"), "AUTHOR_BOOK");
+        Assertions.assertEquals(SQLGenerator.buildJunctionTableName("BOOK", "AUTHOR"), "AUTHOR_BOOK");
     }
 }

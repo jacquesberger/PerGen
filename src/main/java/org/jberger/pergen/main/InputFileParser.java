@@ -28,34 +28,34 @@ import org.jberger.pergen.generated.node.Node;
 import org.jberger.pergen.generated.parser.Parser;
 
 public class InputFileParser {
-    
+
     private String content;
-    
+
     public InputFileParser(String inputFileContent) {
         this.content = inputFileContent;
     }
-    
-    public DataLayerSpecifications extractSpecifications()
-	    throws Exception {
-	Node ast = parseInputFile();
 
-	DataLayerSpecifications specs = new DataLayerSpecifications();
-	ast.apply(new EntityAndFieldExplorer(specs));
-	RelationExplorer relationExplorer = new RelationExplorer();
-	ast.apply(relationExplorer);
+    public DataLayerSpecifications extractSpecifications()
+            throws Exception {
+        Node ast = parseInputFile();
+
+        DataLayerSpecifications specs = new DataLayerSpecifications();
+        ast.apply(new EntityAndFieldExplorer(specs));
+        RelationExplorer relationExplorer = new RelationExplorer();
+        ast.apply(relationExplorer);
 
         RelationAnalyzer analyzer = new RelationAnalyzer(relationExplorer.getRelations());
-	analyzer.analyse(specs);
-	return specs;
+        analyzer.analyse(specs);
+        return specs;
     }
 
     private Node parseInputFile() throws Exception {
-	PushbackReader lecture = new PushbackReader(new BufferedReader(new StringReader(
-	        content)));
+        PushbackReader lecture = new PushbackReader(new BufferedReader(new StringReader(
+                content)));
 
-	Lexer lexer = new Lexer(lecture);
-	Parser parser = new Parser(lexer);
-	Node ast = parser.parse();
-	return ast;
+        Lexer lexer = new Lexer(lecture);
+        Parser parser = new Parser(lexer);
+        Node ast = parser.parse();
+        return ast;
     }
 }
