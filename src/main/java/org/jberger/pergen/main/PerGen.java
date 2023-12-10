@@ -28,16 +28,16 @@ public final class PerGen {
 
     public static void main(final String[] args) {
         MessageWriter writer = new MessageWriter(new PrintStreamWrapper(System.out));
-	if (args.length != 1) {
-	    writer.displayUsage();
-	    System.exit(1);
-	}
+        SystemKiller killer = new SystemKiller();
 
-	try {
+	    ArgsValidator validator = new ArgsValidator(writer, killer);
+        validator.validate(args);
+
+	    try {
             generateSourceCodeFromInputFileSpecs(args[0]);
-	} catch (Exception e) {
+	    } catch (Exception e) {
             writer.displayErrorMessage(e);
-	}
+	    }
     }
 
     private static void generateSourceCodeFromInputFileSpecs(final String inputFilePath) throws Exception {
